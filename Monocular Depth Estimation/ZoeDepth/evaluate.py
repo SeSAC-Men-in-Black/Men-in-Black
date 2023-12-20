@@ -64,49 +64,97 @@ def infer(model, images, **kwargs):
     return mean_pred
 
 
+# @torch.no_grad()
+# def evaluate(model, test_loader, config, round_vals=True, round_precision=3):
+#     model.eval()
+#     metrics = RunningAverageDict()
+#     for i, sample in tqdm(enumerate(test_loader), total=len(test_loader)):
+#         if 'has_valid_depth' in sample:
+#             if not sample['has_valid_depth']:
+#                 continue
+#         image, depth = sample['image'], sample['depth']
+#         image, depth = image.cuda(), depth.cuda()
+#         depth = depth.squeeze().unsqueeze(0).unsqueeze(0)
+#         focal = sample.get('focal', torch.Tensor(
+#             [715.0873]).cuda())  # This magic number (focal) is only used for evaluating BTS model
+#         pred = infer(model, image, dataset=sample['dataset'][0], focal=focal)
+
+#         # Save image, depth, pred for visualization
+#         if "save_images" in config and config.save_images:
+#             import os
+#             # print("Saving images ...")
+#             from PIL import Image
+#             import torchvision.transforms as transforms
+#             from zoedepth.utils.misc import colorize
+
+#             os.makedirs(config.save_images, exist_ok=True)
+#             # def save_image(img, path):
+#             d = colorize(depth.squeeze().cpu().numpy(), 0, 10)
+#             p = colorize(pred.squeeze().cpu().numpy(), 0, 10)
+#             im = transforms.ToPILImage()(image.squeeze().cpu())
+#             im.save(os.path.join(config.save_images, f"{i}_img.png"))
+#             Image.fromarray(d).save(os.path.join(config.save_images, f"{i}_depth.png"))
+#             Image.fromarray(p).save(os.path.join(config.save_images, f"{i}_pred.png"))
+
+
+#         print("evaluate.py" + '='*20)
+#         print(depth.shape, pred.shape, config)
+#         print(compute_metrics(depth, pred, config=config))
+#         metrics.update(compute_metrics(depth, pred, config=config))
+
+#     if round_vals:
+#         def r(m): return round(m, round_precision)
+#     else:
+#         def r(m): return m
+#     print("Metrics before error:", metrics)
+#     metrics = {k: r(v) for k, v in metrics.get_value().items()}
+#     return metrics
+
 @torch.no_grad()
 def evaluate(model, test_loader, config, round_vals=True, round_precision=3):
     model.eval()
     metrics = RunningAverageDict()
+    print(f"Total samples in test loader: {len(test_loader)}")  # Check if test_loader is empty
+
     for i, sample in tqdm(enumerate(test_loader), total=len(test_loader)):
-        if 'has_valid_depth' in sample:
-            if not sample['has_valid_depth']:
-                continue
+        print('sample:', sample)
+        if 'has_valid_depth' in sample and not sample['has_valid_depth']:
+            continue
+
         image, depth = sample['image'], sample['depth']
         image, depth = image.cuda(), depth.cuda()
         depth = depth.squeeze().unsqueeze(0).unsqueeze(0)
-        focal = sample.get('focal', torch.Tensor(
-            [715.0873]).cuda())  # This magic number (focal) is only used for evaluating BTS model
+        focal = sample.get('focal', torch.Tensor([715.0873]).cuda())
+
+        # debugging
+        print("Sample index:", i)
+        print("Image shape:", image.shape)
+        print("Depth shape:", depth.shape)
+        print("Image type:", type(image))
+        print("Depth type:", type(depth))
+        
         pred = infer(model, image, dataset=sample['dataset'][0], focal=focal)
 
-        # Save image, depth, pred for visualization
-        if "save_images" in config and config.save_images:
-            import os
-            # print("Saving images ...")
-            from PIL import Image
-            import torchvision.transforms as transforms
-            from zoedepth.utils.misc import colorize
+        # More debugging information
+        print("Predicted depth shape:", pred.shape)
+        print("Predicted depth type:", type(pred))
 
-            os.makedirs(config.save_images, exist_ok=True)
-            # def save_image(img, path):
-            d = colorize(depth.squeeze().cpu().numpy(), 0, 10)
-            p = colorize(pred.squeeze().cpu().numpy(), 0, 10)
-            im = transforms.ToPILImage()(image.squeeze().cpu())
-            im.save(os.path.join(config.save_images, f"{i}_img.png"))
-            Image.fromarray(d).save(os.path.join(config.save_images, f"{i}_depth.png"))
-            Image.fromarray(p).save(os.path.join(config.save_images, f"{i}_pred.png"))
+        computed_metrics = compute_metrics(depth, pred, config=config)
+        print(f"Iteration {i}: Computed metrics: {computed_metrics}")  # Debug computed metrics
+        metrics.update(computed_metrics)
 
-
-
-        # print(depth.shape, pred.shape)
-        metrics.update(compute_metrics(depth, pred, config=config))
-
+    print("Metrics before error:", metrics.get_value())  # Check the metrics before error
     if round_vals:
         def r(m): return round(m, round_precision)
     else:
         def r(m): return m
-    metrics = {k: r(v) for k, v in metrics.get_value().items()}
-    return metrics
+    final_metrics = metrics.get_value()
+    if final_metrics is not None:  # Check if final_metrics is None
+        final_metrics = {k: r(v) for k, v in final_metrics.items()}
+    else:
+        print("Error: final_metrics is None")
+    return final_metrics
+
 
 def main(config):
     model = build_model(config)
@@ -154,6 +202,11 @@ if __name__ == '__main__':
         datasets = args.dataset.split(",")
     else:
         datasets = [args.dataset]
+
+    print('datasets:', args.dataset)
+    print(args)
+    print(unknown_args)
+    print('0---0000000')
     
     for dataset in datasets:
         eval_model(args.model, pretrained_resource=args.pretrained_resource,

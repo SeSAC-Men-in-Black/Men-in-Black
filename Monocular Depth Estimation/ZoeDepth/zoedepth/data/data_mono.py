@@ -83,46 +83,55 @@ class DepthDataLoader(object):
 
         if config.dataset == 'ibims':
             self.data = get_ibims_loader(config, batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if config.dataset == 'sunrgbd':
             self.data = get_sunrgbd_loader(
                 data_dir_root=config.sunrgbd_root, batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if config.dataset == 'diml_indoor':
             self.data = get_diml_indoor_loader(
                 data_dir_root=config.diml_indoor_root, batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if config.dataset == 'diml_outdoor':
             self.data = get_diml_outdoor_loader(
                 data_dir_root=config.diml_outdoor_root, batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if "diode" in config.dataset:
             self.data = get_diode_loader(
                 config[config.dataset+"_root"], batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if config.dataset == 'hypersim_test':
             self.data = get_hypersim_loader(
                 config.hypersim_test_root, batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if config.dataset == 'vkitti':
             self.data = get_vkitti_loader(
                 config.vkitti_root, batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if config.dataset == 'vkitti2':
             self.data = get_vkitti2_loader(
                 config.vkitti2_root, batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         if config.dataset == 'ddad':
             self.data = get_ddad_loader(config.ddad_root, resize_shape=(
                 352, 1216), batch_size=1, num_workers=1)
+            print("Loaded ibims dataset")
             return
 
         img_size = self.config.get("img_size", None)
@@ -152,6 +161,7 @@ class DepthDataLoader(object):
                                    persistent_workers=True,
                                 #    prefetch_factor=2,
                                    sampler=self.train_sampler)
+            print("DataLoader for training initialized with {} samples".format(len(self.training_samples)))
 
         elif mode == 'online_eval':
             self.testing_samples = DataLoadPreprocess(
@@ -166,12 +176,16 @@ class DepthDataLoader(object):
                                    num_workers=1,
                                    pin_memory=False,
                                    sampler=self.eval_sampler)
+            print("DataLoader for training initialized with {} samples".format(len(self.testing_samples)))
+
 
         elif mode == 'test':
             self.testing_samples = DataLoadPreprocess(
                 config, mode, transform=transform)
             self.data = DataLoader(self.testing_samples,
                                    1, shuffle=False, num_workers=1)
+            print("DataLoader for training initialized with {} samples".format(len(self.testing_samples)))
+
 
         else:
             print(

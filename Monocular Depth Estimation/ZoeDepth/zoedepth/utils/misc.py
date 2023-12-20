@@ -202,6 +202,8 @@ def compute_errors(gt, pred):
 def compute_metrics(gt, pred, interpolate=True, garg_crop=False, eigen_crop=True, dataset='nyu', min_depth_eval=0.1, max_depth_eval=10, **kwargs):
     """Compute metrics of predicted depth maps. Applies cropping and masking as necessary or specified via arguments. Refer to compute_errors for more details on metrics.
     """
+    # debugging
+    print("Depth shape: ", depth.shape, " Pred shape: ", pred.shape)
     if 'config' in kwargs:
         config = kwargs['config']
         garg_crop = config.garg_crop
