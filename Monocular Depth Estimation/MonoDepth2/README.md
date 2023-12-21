@@ -1,6 +1,10 @@
 # Monodepth2, Digging Into Self-Supervised Monocular Depth Estimation
 - paper : [https://arxiv.org/pdf/1806.01260.pdf](https://arxiv.org/pdf/1806.01260.pdf)
 - github : [https://github.com/nianticlabs/monodepth2](https://github.com/nianticlabs/monodepth2)
+
+## 요약
+Monodepth2는 단안(monocular) 이미지에서 깊이를 추정하는 자기 지도 학습(self-supervision) 기반의 방법임. 인코더-디코더 구조를 사용하며, 재투영 손실(Reprojection loss), 자동 마스킹(Auto-masking), 엣지 인식 스무스니스 손실(Edge-Aware Smoothness loss)이라는 새로운 기법들을 통해 깊이 추정의 정확도를 향상시킴. KITTI 데이터셋에서의 테스트 결과, Monodepth2는 기존 방법들에 비해 우수한 성능을 보였으며, 자율 주행과 로봇 공학 등 다양한 분야에 응용될 가능성을 제시함.
+
 ## 목표와 도전 과제
 __[목표]__
 - 단안 카메라 이미지만을 사용하여 깊이를 추정(다른 센서와 같은 추가적인 하드웨어 없이 3차원 환경을 이해할 수 있도록 연구)
