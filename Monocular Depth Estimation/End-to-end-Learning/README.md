@@ -2,7 +2,7 @@
 # Estimation in ADAS with a Monocular Camera
 
 - paper: [https://arxiv.org/pdf/2006.04082v2.pdf](https://arxiv.org/pdf/2006.04082v2.pdf)
-- github: [https://github.com/ZhenboSong/mono_velocity](https://github.com/ZhenboSong/mono_velocity
+- github: [https://github.com/ZhenboSong/mono_velocity](https://github.com/ZhenboSong/mono_velocity)
 
 ## 요약
 - 단안 카메라 (Monocular Camera)로 차량 간 거리 및 상대 속도를 추정
