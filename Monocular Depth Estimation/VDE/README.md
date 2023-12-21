@@ -3,6 +3,12 @@
 - paper:https://www.mdpi.com/2073-8994/14/12/2657
 - github: https://github.com/KyujinHan/Object-Depth-detection-based-hybrid-Distance-estimator
 
+## 요약
+
+- DETR로 class, object의 bounding box 좌표를 출력
+- GLPD로 depth 생성
+- Depth map 위에 bounding box를 overlapping 하여 object의 depth 통계지표를 계산
+- DETR에서 추출한 특성과 depth의 통계 값을 LSTM에 넣어 각 객체의 실제 거리 계산
 
 ## 목표
 
