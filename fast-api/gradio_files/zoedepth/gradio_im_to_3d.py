@@ -25,7 +25,7 @@
 import gradio as gr
 import numpy as np
 import trimesh
-from zoedepth.utils.geometry import depth_to_points, create_triangles
+from mde.ZoeDepth.zoedepth.utils.geometry import depth_to_points, create_triangles
 from functools import partial
 import tempfile
 
