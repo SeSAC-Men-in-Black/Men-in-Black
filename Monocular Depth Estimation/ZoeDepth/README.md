@@ -1,10 +1,5 @@
-# **ZoeDepth: Combining relative and metric depth** (Official implementation)  <!-- omit in toc -->
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
-
 # ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 - paper: [https://arxiv.org/pdf/2302.12288.pdf](https://arxiv.org/pdf/2302.12288.pdf)
 - github: [https://github.com/isl-org/ZoeDepth](https://github.com/isl-org/ZoeDepth)
 
