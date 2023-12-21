@@ -1,218 +1,244 @@
-# **ZoeDepth: Combining relative and metric depth** (Official implementation)  <!-- omit in toc -->
-[![Open In Collab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/isl-org/ZoeDepth)
-[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/shariqfarooq/ZoeDepth)
+# ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+- paper: [https://arxiv.org/pdf/2302.12288.pdf](https://arxiv.org/pdf/2302.12288.pdf)
+- github: [https://github.com/isl-org/ZoeDepth](https://github.com/isl-org/ZoeDepth)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) ![PyTorch](https://img.shields.io/badge/PyTorch_v1.10.1-EE4C2C?&logo=pytorch&logoColor=white) 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/zoedepth-zero-shot-transfer-by-combining/monocular-depth-estimation-on-nyu-depth-v2)](https://paperswithcode.com/sota/monocular-depth-estimation-on-nyu-depth-v2?p=zoedepth-zero-shot-transfer-by-combining)
+## 요약
+- **결합된 접근 방식:** 상대적 깊이와 메트릭 깊이 추정을 통합하여 일반화 성능과 정확한 메트릭 스케일을 모두 달성하고자 함
+- **다중 데이터셋 사전 훈련 및 미세 조정:** 12개 데이터셋에서 상대적 깊이로 사전 훈련되고, 특정 데이터셋에서 메트릭 깊이로 미세 조정되어 각 도메인에 최적화된 성능을 제공
+- **경량화된 헤드와 자동 경로 설정:** 각 도메인에 맞춤화된 경량화된 헤드와 메트릭 빈 모듈을 사용하며, 입력 이미지를 적절한 헤드로 자동으로 경로 설정하는 잠재 분류기 포함
+- **혁신적인 모델 아키텍처:** 각 도메인별로 특화된 새로운 '메트릭 빈 모듈'을 통해 더 정밀하고 효율적인 깊이 추정을 가능하게 하는 독특한 아키텍처를 채택
+- **향상된 성능 및 일반화:** NYU Depth v2 및 기타 데이터셋에서 상대 절대 오류를 크게 감소시키고, 실내 및 실외 도메인의 여러 데이터셋에 대한 제로샷 일반화 성능을 제공
 
->#### [ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth](https://arxiv.org/abs/2302.12288)
-> ##### [Shariq Farooq Bhat](https://shariqfarooq123.github.io), [Reiner Birkl](https://www.researchgate.net/profile/Reiner-Birkl), [Diana Wofk](https://dwofk.github.io/), [Peter Wonka](http://peterwonka.net/), [Matthias Müller](https://matthias.pw/)
+## 목표
 
-[[Paper]](https://arxiv.org/abs/2302.12288)
-
-![teaser](assets/zoedepth-teaser.png)
-
-## **Table of Contents** <!-- omit in toc -->
-- [**Usage**](#usage)
-  - [Using torch hub](#using-torch-hub)
-  - [Using local copy](#using-local-copy)
-    - [Using local torch hub](#using-local-torch-hub)
-    - [or load the models manually](#or-load-the-models-manually)
-  - [Using ZoeD models to predict depth](#using-zoed-models-to-predict-depth)
-- [**Environment setup**](#environment-setup)
-- [**Sanity checks** (Recommended)](#sanity-checks-recommended)
-- [Model files](#model-files)
-- [**Evaluation**](#evaluation)
-  - [Evaluating offical models](#evaluating-offical-models)
-  - [Evaluating local checkpoint](#evaluating-local-checkpoint)
-- [**Training**](#training)
-- [**Gradio demo**](#gradio-demo)
-- [**Citation**](#citation)
+- 상대적 및 측정적 깊이 추정 방법을 통합하여 보다 정밀하고 신뢰할 수 있는 깊이 정보를 제공
+- 다양한 환경에서의 깊이 추정의 정확도를 개선
+- 특히 도시 환경과 같이 복잡한 실외 환경에서의 성능 향상
+	- 이를 위해 다양한 데이터셋에서 사전 학습된 모델을 사용
+	- 특정 데이터셋에서 미세 조정하여 모델의 일반화 능력 강화
 
 
-## **Usage**
-It is recommended to fetch the latest [MiDaS repo](https://github.com/isl-org/MiDaS) via torch hub before proceeding:
-```python
-import torch
+## 방법론
 
-torch.hub.help("intel-isl/MiDaS", "DPT_BEiT_L_384", force_reload=True)  # Triggers fresh download of MiDaS repo
-```
-### **ZoeDepth models** <!-- omit in toc -->
-### Using torch hub
-```python
-import torch
+- Relative 및 Metric Depth Estimation의 결합을 통해 깊이 추정 방법론 혁신
+- ZoeDepth는 MiDaS 모델을 기반으로 하여 깊이 추정의 정확도 향상
+- 새로운 'metric bins module'을 통한 깊이 추정의 개선
+    - 이 모듈은 깊이 추정의 정밀도를 높이는 데 중요한 역할을 함
+    - 다양한 환경에서의 깊이 추정 정확도를 위해 설계됨
 
-repo = "isl-org/ZoeDepth"
-# Zoe_N
-model_zoe_n = torch.hub.load(repo, "ZoeD_N", pretrained=True)
+## 모델 아키텍처
 
-# Zoe_K
-model_zoe_k = torch.hub.load(repo, "ZoeD_K", pretrained=True)
+- 기존 MiDaS 깊이 추정 프레임워크와 DPT 아키텍처를 결합하여 구축
+- RGB 이미지를 처리하여 다양한 해상도에서 깊이 정보 추출
+- MiDaS 디코더는 상대적 깊이 정보를 생성하기 위해 다양한 크기의 특징 맵을 결합
+- 'metric bins module'은 픽셀별 깊이 bin 중심을 계산하고 이를 선형 결합하여 측정적 깊이 정보를 도출
+- 다양한 트랜스포머 백본, 예를 들어 BEiT와 Swin Transformer를 MiDaS 인코더에 적용하여 깊이 추정의 정확도 및 성능 개선
 
-# Zoe_NK
-model_zoe_nk = torch.hub.load(repo, "ZoeD_NK", pretrained=True)
-```
-### Using local copy
-Clone this repo:
-```bash
-git clone https://github.com/isl-org/ZoeDepth.git && cd ZoeDepth
-```
-#### Using local torch hub
-You can use local source for torch hub to load the ZoeDepth models, for example: 
-```python
-import torch
+![](https://i.imgur.com/nWMPa3n.png)
 
-# Zoe_N
-model_zoe_n = torch.hub.load(".", "ZoeD_N", source="local", pretrained=True)
-```
+### Backbone
 
-#### or load the models manually
-```python
-from zoedepth.models.builder import build_model
-from zoedepth.utils.config import get_config
-
-# ZoeD_N
-conf = get_config("zoedepth", "infer")
-model_zoe_n = build_model(conf)
-
-# ZoeD_K
-conf = get_config("zoedepth", "infer", config_version="kitti")
-model_zoe_k = build_model(conf)
-
-# ZoeD_NK
-conf = get_config("zoedepth_nk", "infer")
-model_zoe_nk = build_model(conf)
-```
-
-### Using ZoeD models to predict depth 
-```python
-##### sample prediction
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-zoe = model_zoe_n.to(DEVICE)
+![](https://i.imgur.com/PsAPtZX.png)
 
 
-# Local file
-from PIL import Image
-image = Image.open("/path/to/image.jpg").convert("RGB")  # load
-depth_numpy = zoe.infer_pil(image)  # as numpy
+### metric bins module
 
-depth_pil = zoe.infer_pil(image, output_type="pil")  # as 16-bit PIL Image
+- ZoeDepth에서 'metric bins module'은 깊이 추정의 정확도를 혁신적으로 향상시키는 핵심 요소입니다.
+- 이 모듈은 각 픽셀별로 깊이 bin의 중심을 예측하는 기능을 함으로써, 보다 세밀한 깊이 계산을 가능하게 합니다.
+- 깊이 추정의 정밀도를 높이는 데 중요한 역할을 하며, 다양한 환경에서의 깊이 추정 정확도 향상에 기여합니다.
+## 데이터셋과 사전 훈련
 
-depth_tensor = zoe.infer_pil(image, output_type="tensor")  # as torch tensor
-
-
-
-# Tensor 
-from zoedepth.utils.misc import pil_to_batched_tensor
-X = pil_to_batched_tensor(image).to(DEVICE)
-depth_tensor = zoe.infer(X)
+- 12개의 다양한 데이터셋을 사용
+- 주요 데이터셋으로는 실내 환경에는 NYU Depth v2, 실외 환경에는 KITTI 사용
+- 추가적으로 Relative Depth Estimation을 위한 백본 사전 훈련으로 HRWSI, BlendedMVS, ReDWeb, DIML-Indoor, 3D Movies, MegaDepth, WSVD, TartanAir, ApolloScape, IRS 등의 데이터셋 사용
+- 이들 데이터셋은 모델의 다양한 환경에 대한 일반화 능력을 강화하기 위해 선택
 
 
+## Loss Function and Evaluation Metrics
 
-# From URL
-from zoedepth.utils.misc import get_image_from_url
+1. Absolute Relative Error (REL): 
+$$
+\quad \text{REL} = \frac{1}{M} \sum_{i=1}^{M} \left| \frac{d_i - \hat{d}_i}{d_i} \right|
+$$
+2. Root Mean Squared Error (RMSE):
+$$
+\quad \text{RMSE} = \sqrt{\frac{1}{M} \sum_{i=1}^{M} \left| d_i - \hat{d}_i \right|^2}
+$$
 
-# Example URL
-URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4W8H_Nxk_rs3Vje_zj6mglPOH7bnPhQitBH8WkqjlqQVotdtDEG37BsnGofME3_u6lDk&usqp=CAU"
+3. Average Log10 Error: 
+$$ 
+\quad \text{Average Log10 Error} = \frac{1}{M} \sum_{i=1}^{M} \left| \log_{10}(d_i) - \log_{10}(\hat{d}_i) \right| 
+$$
+
+4. Threshold Accuracy $(\delta^n)$:
+$$
+\begin{align*}
+\text{Percentage of pixels where} \quad \max \left( \frac{d_i}{\hat{d}_i}, \frac{\hat{d}_i}{d_i} \right) < 1.25^n \quad \text{for } n = 1, 2, 3 \\
+\delta^n &: \text{Threshold Accuracy for } n = 1, 2, 3 \\
+d_i &: \text{Ground Truth Depth at pixel } i \\
+\hat{d}_i &: \text{Predicted Depth at pixel } i \\
+M &: \text{Total Number of Pixels in the Image}
+\end{align*}
+$$
+
+5. Mean Relative Improvement across Datasets (mRID):
+$$
+\quad \text{mRID} = \frac{1}{M} \sum_{i=1}^{M} \text{RID}_i
+$$
+6. Mean Relative Improvement across Metrics (mRI$\theta$)
+$$
+\quad \text{mRI}\theta = \frac{1}{N} \sum_{j=1}^{N} \text{RI}\theta_j
+$$
+
+7. Relative Improvement (RI) for lower-is-better metrics:
+$$
+ \quad \text{RI} = \frac{r - t}{r}
+$$
 
 
-image = get_image_from_url(URL)  # fetch
-depth = zoe.infer_pil(image)
+8. Relative Improvement (RI) for higher-is-better metrics:
+$$ \quad \text{RI} = \frac{t - r}{r} $$
+$$
+\\ r: \text{Reference Score} \\ t: \text{Target Score} $$
 
-# Save raw
-from zoedepth.utils.misc import save_raw_16bit
-fpath = "/path/to/output.png"
-save_raw_16bit(depth, fpath)
 
-# Colorize output
-from zoedepth.utils.misc import colorize
+- ZoeDepth는 scale-invariant log loss를 사용하여 깊이 추정의 정확도 측정
+	- 이 loss function은 깊이 추정에서의 스케일 불변성을 보장하여, 다양한 크기의 객체에 대한 깊이 추정을 일관되게 수행할 수 있도록 함
+- 모델의 성능 평가에는 정확도, 정밀도, 재현율과 같은 표준 메트릭스가 사용
 
-colored = colorize(depth)
 
-# save colored output
-fpath_colored = "/path/to/output_colored.png"
-Image.fromarray(colored).save(fpath_colored)
-```
 
-## **Environment setup**
-The project depends on :
-- [pytorch](https://pytorch.org/) (Main framework)
-- [timm](https://timm.fast.ai/)  (Backbone helper for MiDaS)
-- pillow, matplotlib, scipy, h5py, opencv (utilities)
+## 결과
 
-Install environment using `environment.yml` : 
+Figure 10. Zero-shot transfer to the Virtual KITTI 2 dataset. Invalid regions are indicated in gray.
+![](https://i.imgur.com/oh1HZnj.png)
 
-Using [mamba](https://github.com/mamba-org/mamba) (fastest):
-```bash
-mamba env create -n zoe --file environment.yml
-mamba activate zoe
-```
-Using conda : 
+Figure 11. Zero-shot transfer to the DDAD dataset. Ground truth depth is too sparse to visualize here.
+![](https://i.imgur.com/VNqvv2M.png)
 
-```bash
-conda env create -n zoe --file environment.yml
-conda activate zoe
-```
 
-## **Sanity checks** (Recommended)
-Check if models can be loaded: 
-```bash
-python sanity_hub.py
-```
-Try a demo prediction pipeline:
-```bash
-python sanity.py
-```
-This will save a file `pred.png` in the root folder, showing RGB and corresponding predicted depth side-by-side.
-## Model files
-Models are defined under `models/` folder, with `models/<model_name>_<version>.py` containing model definitions and  `models/config_<model_name>.json` containing configuration.
+https://paperswithcode.com/paper/zoedepth-zero-shot-transfer-by-combining/review/
 
-Single metric head models (Zoe_N and Zoe_K from the paper) have the common definition and are defined under `models/zoedepth` while as the multi-headed model (Zoe_NK) is defined under `models/zoedepth_nk`.
-## **Evaluation**
-Download the required dataset and change the `DATASETS_CONFIG` dictionary in `utils/config.py` accordingly. 
-### Evaluating offical models
-On NYU-Depth-v2 for example:
+**Table 2: Comparison with existing works when trained on NYU and KITTI. Results are reported using the REL metric. The mRID column denotes the mean relative improvement with respect to NeWCRFs across datasets. X in the model name, means no architecture change and no pre-training. M12 means that the model was pre-trained (using our base model based on the DPT architecture with the BEiT-L encoder). All models are fine-tuned on NYU and KITTI. † denotes a single metric head (shared); single-head training allows us to adapt prior models without major changes. Best results are in bold, second best are underlined. PixelBins [pixelbinsSarwari:EECS-2021-32] did not converge without modification. We also tried to train AdaBins [bhat2021adabins] across both datasets, but despite our best effort and extensive hyperparameter tuning, it did not converge.**
 
-For ZoeD_N:
-```bash
-python evaluate.py -m zoedepth -d nyu
-```
+|   |   |   |   |   |   |
+|---|---|---|---|---|---|
+|Method|NYU|KITTI|iBims-1|vKITTI-2|mRID|
+|Baselines: no modification|   |   |   |   |   |
+|DORN-X-NK†|0.156|0.115|0.287|0.259|-45.7%|
+|LocalBins-X-NK†|0.245|0.133|0.296|0.265|-74.0%|
+|PixelBins-X-NK†|-|-|-|-|-|
+|NeWCRFs-X-NK†|0.109|0.076|0.189|0.190|0.0%|
+|Baselines: modified to use our pre-trained DPT-BEiT-L as backbone|   |   |   |   |   |
+|DORN-M12-NK†|0.110|0.081|0.242|0.215|-12.2%|
+|LocalBins-M12-NK†|0.086|0.071|0.221|0.121|11.8%|
+|PixelBins-M12-NK†|0.088|0.071|0.232|0.119|10.1%|
+|NeWCRFs-M12-NK†|0.088|0.073|0.233|0.124|8.7%|
+|Ours: different configuations for fair comparison|   |   |   |   |   |
+|ZoeD-X-NK†|0.095|0.074|0.187|0.184|4.9%|
+|ZoeD-M12-NK†|0.081|0.061|0.210|0.112|18.8%|
+|ZoeD-M12-NK|0.077|0.057|0.186|0.105|25.2%|
 
-For ZoeD_NK:
-```bash
-python evaluate.py -m zoedepth_nk -d nyu
-```
 
-### Evaluating local checkpoint
-```bash
-python evaluate.py -m zoedepth --pretrained_resource="local::/path/to/local/ckpt.pt" -d nyu
-```
-Pretrained resources are prefixed with `url::` to indicate weights should be fetched from a url, or `local::` to indicate path is a local file. Refer to `models/model_io.py` for details. 
+**Table 4: Quantitative results for zero-shot transfer to four unseen outdoor datasets. mRIθ denotes the mean relative improvement with respect to NeWCRFs across all metrics (δ1, REL, RMSE). Best results are in bold, second best are underlined.**
 
-The dataset name should match the corresponding key in `utils.config.DATASETS_CONFIG` .
+|   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+||Virtual KITTI 2|   |   |   |DDAD|   |   |   |DIML Outdoor|   |   |   |DIODE Outdoor|   |   |   |
+|Method|δ1 ↑|REL ↓|RMSE ↓|mRIθ ↑|δ1 ↑|REL ↓|RMSE ↓|mRIθ ↑|δ1 ↑|REL ↓|RMSE ↓|mRIθ ↑|δ1 ↑|REL ↓|RMSE ↓|mRIθ ↑|
+|BTS [bts_lee2019big]|0.831|0.115|5.368|2.5%|0.805|0.147|7.550|-17.8%|0.016|1.785|5.908|24.3%|0.171|0.837|10.48|-4.8%|
+|AdaBins [bhat2021adabins]|0.826|0.122|5.420|0.0%|0.766|0.154|8.560|-26.7%|0.013|1.941|6.272|9.7%|0.161|0.863|10.35|-7.2%|
+|LocalBins [bhat2022localbins]|0.810|0.127|5.981|-5.3%|0.777|0.151|8.139|-23.2%|0.016|1.820|6.706|19.5%|0.170|0.821|10.27|-3.6%|
+|NeWCRFs [yuan2022new]|0.829|0.117|5.691|0.0%|0.874|0.119|6.183|0.0%|0.010|1.918|6.283|0.0%|0.176|0.854|9.228|0.0%|
+|ZoeD-X-K|0.837|0.112|5.338|3.8%|0.790|0.137|7.734|-16.6%|0.005|1.756|6.180|-13.3%|0.242|0.799|7.806|19.8%|
+|ZoeD-M12-K|0.864|0.100|4.974|10.5%|0.835|0.129|7.108|-9.3%|0.003|1.921|6.978|-27.1%|0.269|0.852|6.898|26.1%|
+|ZoeD-M12-NK|0.850|0.105|5.095|7.8%|0.824|0.138|7.225|-12.8%|0.292|0.641|3.610|976.4%|0.208|0.757|7.569|15.8%|
 
-## **Training**
-Download training datasets as per instructions given [here](https://github.com/cleinc/bts/tree/master/pytorch#nyu-depvh-v2). Then for training a single head model on NYU-Depth-v2 :
-```bash
-python train_mono.py -m zoedepth --pretrained_resource=""
-```
+**Table 5: Metric head variants. The “Config” column specifies the split factor in case of the splitter variant and the number of attractors {nla} for attractor variants. The reported results are all based on ZoeD-M12-N evaluated on NYU Depth v2. Best results are in bold, second best are underlined.**
 
-For training the Zoe-NK model:
-```bash
-python train_mix.py -m zoedepth_nk --pretrained_resource=""
-```
-## **Gradio demo**
-We provide a UI demo built using [gradio](https://gradio.app/). To get started, install UI requirements:
-```bash
-pip install -r ui/ui_requirements.txt
-```
-Then launch the gradio UI:
-```bash
-python -m ui.app
-```
+|   |   |   |   |   |
+|---|---|---|---|---|
+|Metric head type|   |   |REL ↓|RMSE ↓|
+|Type|Variant|Config|||
+|Naive head|-|-|0.096|0.335|
+|Metric bins|Splitter|factor = 2|0.085|0.301|
+|Metric bins|Exponential Attractor|{16,8,4,1}|0.086|0.305|
+|Metric bins|Inverse Attractor|{8,8,8,8}|0.081|0.295|
+|Metric bins|Inverse Attractor|{16,2,2,16}|0.081|0.291|
+|Metric bins|Inverse Attractor|{1,4,8,16}|0.080|0.287|
+|Metric bins|Inverse Attractor|{16,8,4,1}|0.075|0.270|
 
-The UI is also hosted on HuggingFace🤗 [here](https://huggingface.co/spaces/shariqfarooq/ZoeDepth)
-## **Citation**
+**Table 6: Router variants. The reported results are all based on ZoeD-M12-NK evaluated on NYU Depth v2 and KITTI. Best results are in bold, second best are underlined.**
+
+|   |   |   |   |   |   |   |
+|---|---|---|---|---|---|---|
+||Labels required|   |REL ↓|   |RMSE ↓|   |
+|Variant|Train|Inference|NYU|KITTI|NYU|KITTI|
+|Labeled Router|✓|✓|0.080|0.057|0.290|2.452|
+|Trained Router|✓|✗|0.077|0.057|0.277|2.362|
+|Auto Router|✗|✗|0.102|0.075|0.377|2.584|
+
+**Table 7: Overview of datasets used in metric depth fine-tuning and evaluation of ZoeDepth architectures. For demonstrating zero-shot transfer, we evaluate across a total of 13165 indoor samples and 6597 outdoor samples. While HyperSim is predominantly an indoor dataset, there are several samples exhibiting depth ranges exceeding 10 m, so we relax the maximum evaluation depth up to 80 m. ‡ : To follow prior works [yuan2022new, bhat2021adabins], we crop the sample and then use scaled Garg crop for evaluation. We verify the transforms by reproducing results obtained by using respective pre-trained checkpoints provided by prior works.**
+
+|   |   |   |   |   |   |   |   |   |
+|---|---|---|---|---|---|---|---|---|
+||||Seen in|# Train|# Eval|Eval Depth [m]|   |Crop|
+|Dataset|Domain|Type|Training?|Samples|Samples|Min|Max|Method|
+|NYU Depth v2 [Silberman2012]|Indoor|Real|✓|24k [bts_lee2019big]|654|1e-3|10|Eigen|
+|SUN RGB-D [Song2015_sunrgbd]|Indoor|Real|✗|-|5050|1e-3|8|Eigen|
+|iBims-1 [koch2019]|Indoor|Real|✗|-|100|1e-3|10|Eigen|
+|DIODE Indoor [diode_dataset]|Indoor|Real|✗|-|325|1e-3|10|Eigen|
+|HyperSim [roberts:2021]|Indoor|Synthetic|✗|-|7690|1e-3|80|Eigen|
+|KITTI [Menze_2015_CVPR]|Outdoor|Real|✓|26k [bts_lee2019big]|697|1e-3|80|Garg‡|
+|Virtual KITTI 2 [cabon2020vkitti2]|Outdoor|Synthetic|✗|-|1701|1e-3|80|Garg‡|
+|DDAD [packnet]|Outdoor|Real|✗|-|3950|1e-3|80|Garg|
+|DIML Outdoor [kim2018deep]|Outdoor|Real|✗|-|500|1e-3|80|Garg|
+|DIODE Outdoor [diode_dataset]|Outdoor|Real|✗|-|446|1e-3|80|Garg|
+
+
+Table 17. Parameter comparison of ZoeDepth models with different backbones and state of the art models. Note that the number of parameters of ZoeDepth only varies with the backbone and is the same for all variants trained on different dataset combinations, e.g., ZoeD-X-N, ZoeD-M12-N and ZoeD-M12-NK, etc
+
+|   |   |   |
+|---|---|---|
+|Method|Encoder|# Params|
+|Eigen et al. [Eigen2014]|-|141M|
+|Laina et al. [Laina2016]|ResNet-50|64M|
+|Hao et al. [Hao2018DetailPD]|ResNet-101|60M|
+|Lee et al. [Lee2011]|-|119M|
+|Fu et al. [Fu2018DeepOR]|ResNet-101|110M|
+|SharpNet [Ramamonjisoa_2019_ICCV]|-|-|
+|Hu et al. [Hu2018RevisitingSI]|SENet-154|157M|
+|Chen et al. [ijcai2019-98]|SENet|210M|
+|Yin et al. [Yin_2019_ICCV]|ResNeXt-101|114M|
+|BTS [bts_lee2019big]|DenseNet-161|47M|
+|AdaBins [bhat2021adabins]|EfficientNet-B5|78M|
+|LocalBins [bhat2022localbins]|EfficientNet-B5|74M|
+|NeWCRFs [yuan2022new]|Swin-L|270M|
+|ZoeDepth (S-L)|Swin-L|212M|
+|ZoeDepth (S2-T)|Swin2-T|42M|
+|ZoeDepth (S2-B)|Swin2-B|102M|
+|ZoeDepth (S2-L)|Swin2-L|214M|
+|ZoeDepth (B-B)|Beit-B|112M|
+|ZoeDepth (B-L)|Beit-L|345M|
+
+
+Performance (REL):
+
+|Model|Backbone|NYU|SUN RGBD|iBims-1|DIODE Indoor|Hypersim|
+|:-:|:-:|:-:|---|---|---|---|
+|ZoeD-M12-N|BEiT-L-384|0.075|0.119|0.169|0.327|0.410|
+
+|Model|Backbone|NYU|SUN RGBD|iBims-1|DIODE Indoor|Hypersim|Virtual KITTI 2|DDAD|DIML Outdoor|DIODE Outdoor|
+|:-:|:-:|:-:|---|---|---|---|---|---|---|---|
+|ZoeD-M12-NK|BEiT-L-384|0.077|0.123|0.186|0.331|0.419|0.105|0.138|0.641|0.757|
+
+|Model|Backbone|Virtual KITTI 2|DDAD|DIML Outdoor|DIODE Outdoor|
+|:-:|:-:|---|---|---|---|
+|ZoeD-M12-K|BEiT-L-384|0.100|0.129|1.921|0.852|
+
+
+## Citation
 ```
 @misc{https://doi.org/10.48550/arxiv.2302.12288,
   doi = {10.48550/ARXIV.2302.12288},
