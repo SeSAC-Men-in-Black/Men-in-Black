@@ -5,8 +5,8 @@
 
 ## 요약
 
-- DETR로 class, object의 bounding box 좌표를 출력
-- GLPD로 depth 생성
+- DETR(Detection with Transformers)로 class, object의 bounding box 좌표를 출력
+- GLPDepth(Global-Local Path Depth)로 depth 생성
 - Depth map 위에 bounding box를 overlapping 하여 object의 depth 통계지표를 계산
 - DETR에서 추출한 특성과 depth의 통계 값을 LSTM에 넣어 각 객체의 실제 거리 계산
 
@@ -38,7 +38,7 @@
 - Overlappning 된 bounding box를 기준으로 각 object의 depth 통계지표를 계산
 - Bounding box, class information, depth의 통계 values를 LSTM에 넣어서 각 객체의 real distance를 계산
 
-### 1. DETR
+### 1. DETR (End-to-End Object Detection with Transformers)
 
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/4cdda6c3-8324-4283-a32d-4a0f806416dc)
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/75588172-3c01-44e7-a68c-c93db00b08d1)
@@ -50,7 +50,7 @@
         
     - 디코더는 특정 객체 쿼리를 기반으로 각 객체의 클래스와 바운딩 박스(위치 및 크기)를 예측
 
-### 2. GLPDepth structure
+### 2. GLPDepth structure (Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth)
 
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/3c77aa23-5501-42e3-84a8-58de5850d120)
 
