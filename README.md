@@ -250,4 +250,8 @@ Canny Edge Detection:
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140369529/0c31325c-acec-4954-a768-e079714aa469)
 
 
+## 6. 모델 구조
+
+![KakaoTalk_20231221_173206463](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/09883330-4bb9-4651-9688-28010e4458c9)
+![KakaoTalk_20231208_151131324](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/9f171f80-f9a8-4ffc-8ff1-b17b0f7967dd)
 
