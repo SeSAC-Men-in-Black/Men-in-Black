@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text">
+    <div class="section-title" style="margin-top:100px">
+                    <h2>Project</h2>
+                    <p>Automatic License Plate Recognition</p>
+                </div>
+    <h2 tabindex="-1" dir="auto"><a id="user-content-진행-과정" class="anchor" aria-hidden="true" tabindex="-1" href="#진행-과정"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>진행 과정:</h2>
+<ol dir="auto">
+<li>
+<p dir="auto">차량 감지(Vehicle Detection)</p>
+</li>
+<li>
+<p dir="auto">번호판 감지(License Plate Detection)</p>
+</li>
+<li>
+<p dir="auto">OCR(Optical Character Recognition)</p>
+</li>
+</ol>
+<h2 tabindex="-1" dir="auto"><a id="user-content-1-차량-감지vehicle-detection" class="anchor" aria-hidden="true" tabindex="-1" href="#1-차량-감지vehicle-detection"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>1. 차량 감지(Vehicle Detection)</h2>
+<ul dir="auto">
+<li>
+<p dir="auto">Model: Yolov8n, Yolov8m</p>
+</li>
+<li>
+<p dir="auto">Dataset: COCO Dataset</p>
+<ul dir="auto">
+<li>
+<p dir="auto">330K images (&gt;200K labeled)</p>
+</li>
+<li>
+<p dir="auto">1.5 million object instances</p>
+</li>
+<li>
+<p dir="auto">80 object categories</p>
+</li>
+</ul>
+</li>
+<li>
+<p dir="auto">Classes: Car, Motorcycle, Bus, Truck</p>
+</li>
+</ul>
+<p dir="auto">YOLO model structure</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/eaf32827ac892bae3c48f6e16b9f53f427fc1e410581ad76a706425f2b8e97bb/68747470733a2f2f692e696d6775722e636f6d2f654667546f796f2e706e67"><img src="https://camo.githubusercontent.com/eaf32827ac892bae3c48f6e16b9f53f427fc1e410581ad76a706425f2b8e97bb/68747470733a2f2f692e696d6775722e636f6d2f654667546f796f2e706e67" alt="" data-canonical-src="https://i.imgur.com/eFgToyo.png" style="max-width: 100%;"></a></p>
+<h3 tabindex="-1" dir="auto"><a id="user-content-차량-트래킹object-tracking" class="anchor" aria-hidden="true" tabindex="-1" href="#차량-트래킹object-tracking"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>차량 트래킹(Object Tracking)</h3>
+<ul dir="auto">
+<li>
+<p dir="auto">model: Sort</p>
+<ul dir="auto">
+<li>A simple online and realtime tracking algorithm for 2D multiple object tracking in video sequences</li>
+</ul>
+</li>
+<li>
+<p dir="auto"><a href="https://github.com/abewley/sort">GitHub - abewley/sort: Simple, online, and realtime tracking of multiple objects in a video sequence.</a></p>
+</li>
+</ul>
+<h3 tabindex="-1" dir="auto"><a id="user-content-2-번호판-감지license-plate-detection" class="anchor" aria-hidden="true" tabindex="-1" href="#2-번호판-감지license-plate-detection"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>2. 번호판 감지(License Plate Detection)</h3>
+<ul dir="auto">
+<li>
+<p dir="auto">Model: Yolov8m 50 epoch, 120epoch</p>
+</li>
+<li>
+<p dir="auto">Dataset:&nbsp;[Roboflow]<a href="https://universe.roboflow.com/roboflow-universe-projects/license-plate-recognition-rxg4e/dataset/4" title="https://universe.roboflow.com/roboflow-universe-projects/license-plate-recognition-rxg4e/dataset/4" rel="nofollow">License Plate Recognition Object Detection Dataset (v4, resized640_aug3x-ACCURATE) by Roboflow Universe Projects</a></p>
+<ul dir="auto">
+<li>
+<p dir="auto">24242 images</p>
+<ul dir="auto">
+<li>
+<p dir="auto">Augmentations</p>
+<ul dir="auto">
+<li>
+<p dir="auto">Flip: Horizontal</p>
+</li>
+<li>
+<p dir="auto">Crop: 0% Minimum Zoom, 15% Maximum Zoom</p>
+</li>
+<li>
+<p dir="auto">Rotation: Between -10° and +10°</p>
+</li>
+<li>
+<p dir="auto">Shear: ±2° Horizontal, ±2° Vertical</p>
+</li>
+<li>
+<p dir="auto">Grayscale: Apply to 10% of images</p>
+</li>
+<li>
+<p dir="auto">Hue: Between -15° and +15°</p>
+</li>
+<li>
+<p dir="auto">Saturation: Between -15% and +15%</p>
+</li>
+<li>
+<p dir="auto">Brightness: Between -15% and +15%</p>
+</li>
+<li>
+<p dir="auto">Exposure: Between -15% and +15%</p>
+</li>
+<li>
+<p dir="auto">Blur: Up to 0.5px</p>
+</li>
+<li>
+<p dir="auto">Cutout: 5 boxes with 2% size each</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p dir="auto">Training:</p>
+</li>
+</ul>
+<p dir="auto">hyper parameters:</p>
+<p dir="auto"><code>task=detect, mode=train, model=yolov8m.pt, data=/content/License_plate_recognition/dataset/License-Plate-Recognition-4/data.yaml, epochs=500, patience=50, batch=16, imgsz=640, save=True, save_period=-1, cache=False, device=None, workers=8, project=license_plate_detection_yolov8m, name=None, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, show=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, vid_stride=1, stream_buffer=False, line_width=None, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, boxes=True, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0, copy_paste=0.0, cfg=None, tracker=botsort.yaml, save_dir=license_plate_detection_yolov8m/train</code></p>
+<p dir="auto">model summary:</p>
+<p dir="auto"><code>from n params module arguments 0 -1 1 1392 ultralytics.nn.modules.conv.Conv [3, 48, 3, 2] 1 -1 1 41664 ultralytics.nn.modules.conv.Conv [48, 96, 3, 2] 2 -1 2 111360 ultralytics.nn.modules.block.C2f [96, 96, 2, True] 3 -1 1 166272 ultralytics.nn.modules.conv.Conv [96, 192, 3, 2] 4 -1 4 813312 ultralytics.nn.modules.block.C2f [192, 192, 4, True] 5 -1 1 664320 ultralytics.nn.modules.conv.Conv [192, 384, 3, 2] 6 -1 4 3248640 ultralytics.nn.modules.block.C2f [384, 384, 4, True] 7 -1 1 1991808 ultralytics.nn.modules.conv.Conv [384, 576, 3, 2] 8 -1 2 3985920 ultralytics.nn.modules.block.C2f [576, 576, 2, True] 9 -1 1 831168 ultralytics.nn.modules.block.SPPF [576, 576, 5] 10 -1 1 0 torch.nn.modules.upsampling.Upsample [None, 2, 'nearest'] 11 [-1, 6] 1 0 ultralytics.nn.modules.conv.Concat [1] 12 -1 2 1993728 ultralytics.nn.modules.block.C2f [960, 384, 2] 13 -1 1 0 torch.nn.modules.upsampling.Upsample [None, 2, 'nearest'] 14 [-1, 4] 1 0 ultralytics.nn.modules.conv.Concat [1] 15 -1 2 517632 ultralytics.nn.modules.block.C2f [576, 192, 2] 16 -1 1 332160 ultralytics.nn.modules.conv.Conv [192, 192, 3, 2] 17 [-1, 12] 1 0 ultralytics.nn.modules.conv.Concat [1] 18 -1 2 1846272 ultralytics.nn.modules.block.C2f [576, 384, 2] 19 -1 1 1327872 ultralytics.nn.modules.conv.Conv [384, 384, 3, 2] 20 [-1, 9] 1 0 ultralytics.nn.modules.conv.Concat [1] 21 -1 2 4207104 ultralytics.nn.modules.block.C2f [960, 576, 2] 22 [15, 18, 21] 1 3776275 ultralytics.nn.modules.head.Detect [1, [192, 384, 576]] Model summary: 295 layers, 25856899 parameters, 25856883 gradients</code></p>
+<p dir="auto">optimizer: SGD(lr=0.01, momentum=0.9) with parameter groups 77 weight(decay=0.0), 84 weight(decay=0.0005), 83 bias(decay=0.0)</p>
+<p dir="auto">Image sizes: 640 train, 640 val</p>
+<h4 tabindex="-1" dir="auto"><a id="user-content-wandb" class="anchor" aria-hidden="true" tabindex="-1" href="#wandb"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>WandB</h4>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/a3f605267c75ddebfb3640c44326585a962d5dd5e44eba3e4a32e8092c01aeef/68747470733a2f2f692e696d6775722e636f6d2f774b46474152782e706e67"><img src="https://camo.githubusercontent.com/a3f605267c75ddebfb3640c44326585a962d5dd5e44eba3e4a32e8092c01aeef/68747470733a2f2f692e696d6775722e636f6d2f774b46474152782e706e67" alt="" data-canonical-src="https://i.imgur.com/wKFGARx.png" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/2db626aceafb2b0e7164af70927854ea59ddf682174f51c66228ffaf5bf5aae6/68747470733a2f2f692e696d6775722e636f6d2f5a777a5a435a682e706e67"><img src="https://camo.githubusercontent.com/2db626aceafb2b0e7164af70927854ea59ddf682174f51c66228ffaf5bf5aae6/68747470733a2f2f692e696d6775722e636f6d2f5a777a5a435a682e706e67" alt="" data-canonical-src="https://i.imgur.com/ZwzZCZh.png" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/7ed6dd8a1ad6bb10c64ef81e54a30253a422f938b9bdd41ff29e358b5dfe7008/68747470733a2f2f692e696d6775722e636f6d2f6947735477394f2e706e67"><img src="https://camo.githubusercontent.com/7ed6dd8a1ad6bb10c64ef81e54a30253a422f938b9bdd41ff29e358b5dfe7008/68747470733a2f2f692e696d6775722e636f6d2f6947735477394f2e706e67" alt="" data-canonical-src="https://i.imgur.com/iGsTw9O.png" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8d7dff9694f50c27c385c5272dc7b6ddbe334c2e825c9c3ce1db9f8f2a78737b/68747470733a2f2f692e696d6775722e636f6d2f414b7a6f34547a2e706e67"><img src="https://camo.githubusercontent.com/8d7dff9694f50c27c385c5272dc7b6ddbe334c2e825c9c3ce1db9f8f2a78737b/68747470733a2f2f692e696d6775722e636f6d2f414b7a6f34547a2e706e67" alt="" data-canonical-src="https://i.imgur.com/AKzo4Tz.png" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/84401a103c6bf0860606471c27cf74157b143dbf8663621cbb9ed7514a8b2b5e/68747470733a2f2f692e696d6775722e636f6d2f554b4738356a302e706e67"><img src="https://camo.githubusercontent.com/84401a103c6bf0860606471c27cf74157b143dbf8663621cbb9ed7514a8b2b5e/68747470733a2f2f692e696d6775722e636f6d2f554b4738356a302e706e67" alt="" data-canonical-src="https://i.imgur.com/UKG85j0.png" style="max-width: 100%;"></a></p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1d3f40d8935ee9910ef8f5d066f89a3f03f46765df497485c5f75034c54ea9b7/68747470733a2f2f692e696d6775722e636f6d2f31423864674f572e706e67"><img src="https://camo.githubusercontent.com/1d3f40d8935ee9910ef8f5d066f89a3f03f46765df497485c5f75034c54ea9b7/68747470733a2f2f692e696d6775722e636f6d2f31423864674f572e706e67" alt="" data-canonical-src="https://i.imgur.com/1B8dgOW.png" style="max-width: 100%;"></a></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-3-ocroptical-character-recognition" class="anchor" aria-hidden="true" tabindex="-1" href="#3-ocroptical-character-recognition"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>3. OCR(Optical Character Recognition)</h2>
+<p dir="auto">Model: EasyOCR</p>
+<p dir="auto">Preprocessing steps:</p>
+<ol dir="auto">
+<li>
+<p dir="auto"><strong>Grayscale Conversion</strong>: This simplifies the image by removing color information, making further processing faster and focusing on intensity.</p>
+</li>
+<li>
+<p dir="auto"><strong>Contrast Enhancement with CLAHE (Contrast Limited Adaptive Histogram Equalization)</strong>: Improves the contrast of the image, making details more distinct, especially useful in varying lighting conditions.</p>
+</li>
+<li>
+<p dir="auto"><strong>Gaussian Blur</strong>: Reduces noise and smoothes the image, which can help in reducing false edges detected in the subsequent edge detection step.</p>
+</li>
+<li>
+<p dir="auto"><strong>Canny Edge Detection</strong>: Identifies edges in the image. This is useful for finding the boundaries of objects, in this case, the license plate.</p>
+</li>
+<li>
+<p dir="auto"><strong>Finding Contours and Perspective Transformation</strong>: Identifies contours in the image and, if a rectangular contour (assumed to be the license plate) is found, applies a perspective transformation to get a front-facing view of the license plate.</p>
+</li>
+</ol>
+<p dir="auto">Original Image:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/838c69f2243c09a7318f751c202cf49ac549f1c96120a2850bb344183782f07c/68747470733a2f2f692e696d6775722e636f6d2f363376326d4d4f2e706e67"><img src="https://camo.githubusercontent.com/838c69f2243c09a7318f751c202cf49ac549f1c96120a2850bb344183782f07c/68747470733a2f2f692e696d6775722e636f6d2f363376326d4d4f2e706e67" alt="" data-canonical-src="https://i.imgur.com/63v2mMO.png" style="max-width: 100%;"></a></p>
+<p dir="auto">Detected Car:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/74282e654a2e5d63dc94c5da43188e6c27139958a8ab09f39dc81dc2c26edd76/68747470733a2f2f692e696d6775722e636f6d2f35307a4167574e2e706e67"><img src="https://camo.githubusercontent.com/74282e654a2e5d63dc94c5da43188e6c27139958a8ab09f39dc81dc2c26edd76/68747470733a2f2f692e696d6775722e636f6d2f35307a4167574e2e706e67" alt="" data-canonical-src="https://i.imgur.com/50zAgWN.png" style="max-width: 100%;"></a></p>
+<p dir="auto">Grayscale:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d8edf85de51c69e023fb669595632395003457ce153782617831ab6973b43852/68747470733a2f2f692e696d6775722e636f6d2f336832585959342e706e67"><img src="https://camo.githubusercontent.com/d8edf85de51c69e023fb669595632395003457ce153782617831ab6973b43852/68747470733a2f2f692e696d6775722e636f6d2f336832585959342e706e67" alt="" data-canonical-src="https://i.imgur.com/3h2XYY4.png" style="max-width: 100%;"></a></p>
+<p dir="auto">CLAHE:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0e93215e6101fd4049e41a712d76e240551a10d1214d1ab7546fb4d0bf275eef/68747470733a2f2f692e696d6775722e636f6d2f4e7437306133702e706e67"><img src="https://camo.githubusercontent.com/0e93215e6101fd4049e41a712d76e240551a10d1214d1ab7546fb4d0bf275eef/68747470733a2f2f692e696d6775722e636f6d2f4e7437306133702e706e67" alt="" data-canonical-src="https://i.imgur.com/Nt70a3p.png" style="max-width: 100%;"></a></p>
+<p dir="auto">Gaussian Blur:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/dde9f4391e038dc30b7bfe4eea6a02e3d94e3aa509ae908e04fe441ec2e2330b/68747470733a2f2f692e696d6775722e636f6d2f493043673877482e706e67"><img src="https://camo.githubusercontent.com/dde9f4391e038dc30b7bfe4eea6a02e3d94e3aa509ae908e04fe441ec2e2330b/68747470733a2f2f692e696d6775722e636f6d2f493043673877482e706e67" alt="" data-canonical-src="https://i.imgur.com/I0Cg8wH.png" style="max-width: 100%;"></a></p>
+<p dir="auto">Canny Edge Detection:</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/1f8058b6f61af3198e1c3c9e85a154b36358ad3c9ae64b8f49c91f40e33ede81/68747470733a2f2f692e696d6775722e636f6d2f764562547358792e706e67"><img src="https://camo.githubusercontent.com/1f8058b6f61af3198e1c3c9e85a154b36358ad3c9ae64b8f49c91f40e33ede81/68747470733a2f2f692e696d6775722e636f6d2f764562547358792e706e67" alt="" data-canonical-src="https://i.imgur.com/vEbTsXy.png" style="max-width: 100%;"></a></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-attempts-and-failure" class="anchor" aria-hidden="true" tabindex="-1" href="#attempts-and-failure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Attempts and Failure:</h2>
+<ul dir="auto">
+<li>
+<p dir="auto">Tracking cars with yolov8:</p>
+<ul dir="auto">
+<li>worse outputs compared to Sort, took longer time→ attempted at early stages, improved output expected</li>
+</ul>
+</li>
+<li>
+<p dir="auto">Clips from Dashboard cam:</p>
+<ul dir="auto">
+<li>
+<p dir="auto">Car and License Plates were well detected, but video quality too low for OCR</p>
+</li>
+<li>
+<p dir="auto">phenomenon occurred more frequently when relative speed of vehicle was faster</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-room-for-improvements" class="anchor" aria-hidden="true" tabindex="-1" href="#room-for-improvements"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Room for Improvements:</h2>
+<ul dir="auto">
+<li>
+<p dir="auto">Try variety of Object Detection models for comparison</p>
+</li>
+<li>
+<p dir="auto">Try variety of OCR models for comparison(TesseractOCR, PaddleOCR)</p>
+</li>
+<li>
+<p dir="auto">Enhance Video Quality for better detection and recognition</p>
+</li>
+<li>
+<p dir="auto">Try Segmentation</p>
+</li>
+</ul>
+</article></div>
+{% endblock %}

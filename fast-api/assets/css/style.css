@@ -12,6 +12,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
+
 }
 
 a {
@@ -23,6 +24,18 @@ a:hover {
   color: #ffd584;
   text-decoration: none;
 }
+
+article{
+ margin-top:100px   
+}
+
+iframe{
+    margin: auto;
+}
+
+div.demo_container{
+}
+
 
 h1,
 h2,
@@ -123,12 +136,14 @@ h6 {
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
+  background: rgba(0, 0, 0, 0.8);
+
 }
 
-#header.header-scrolled,
+/* #header.header-scrolled,
 #header.header-inner-pages {
   background: rgba(0, 0, 0, 0.8);
-}
+} */
 
 #header .logo {
   font-size: 32px;
@@ -1407,7 +1422,7 @@ section {
 #footer .footer-top {
   background: #151515;
   border-bottom: 1px solid #222222;
-  padding: 60px 0 30px 0;
+  padding: 30px 0 30px 0;
 }
 
 #footer .footer-top .footer-info {

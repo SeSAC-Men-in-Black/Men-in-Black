@@ -1,0 +1,993 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 tabindex="-1" dir="auto"><a id="user-content-zoedepth-zero-shot-transfer-by-combining-relative-and-metric-depth" class="anchor" aria-hidden="true" tabindex="-1" href="#zoedepth-zero-shot-transfer-by-combining-relative-and-metric-depth"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth</h1>
+<p dir="auto"><a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://camo.githubusercontent.com/fd551ba4b042d89480347a0e74e31af63b356b2cac1116c7b80038f41b04a581/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4d49542d677265656e2e737667" alt="License: MIT" data-canonical-src="https://img.shields.io/badge/License-MIT-green.svg" style="max-width: 100%;"></a></p>
+<ul dir="auto">
+<li>paper: <a href="https://arxiv.org/pdf/2302.12288.pdf" rel="nofollow">https://arxiv.org/pdf/2302.12288.pdf</a></li>
+<li>github: <a href="https://github.com/isl-org/ZoeDepth">https://github.com/isl-org/ZoeDepth</a></li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-요약" class="anchor" aria-hidden="true" tabindex="-1" href="#요약"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>요약</h2>
+<ul dir="auto">
+<li><strong>결합된 접근 방식:</strong> 상대적 깊이와 메트릭 깊이 추정을 통합하여 일반화 성능과 정확한 메트릭 스케일을 모두 달성하고자 함</li>
+<li><strong>다중 데이터셋 사전 훈련 및 미세 조정:</strong> 12개 데이터셋에서 상대적 깊이로 사전 훈련되고, 특정 데이터셋에서 메트릭 깊이로 미세 조정되어 각 도메인에 최적화된 성능을 제공</li>
+<li><strong>경량화된 헤드와 자동 경로 설정:</strong> 각 도메인에 맞춤화된 경량화된 헤드와 메트릭 빈 모듈을 사용하며, 입력 이미지를 적절한 헤드로 자동으로 경로 설정하는 잠재 분류기 포함</li>
+<li><strong>혁신적인 모델 아키텍처:</strong> 각 도메인별로 특화된 새로운 '메트릭 빈 모듈'을 통해 더 정밀하고 효율적인 깊이 추정을 가능하게 하는 독특한 아키텍처를 채택</li>
+<li><strong>향상된 성능 및 일반화:</strong> NYU Depth v2 및 기타 데이터셋에서 상대 절대 오류를 크게 감소시키고, 실내 및 실외 도메인의 여러 데이터셋에 대한 제로샷 일반화 성능을 제공</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-목표" class="anchor" aria-hidden="true" tabindex="-1" href="#목표"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>목표</h2>
+<ul dir="auto">
+<li>상대적 및 측정적 깊이 추정 방법을 통합하여 보다 정밀하고 신뢰할 수 있는 깊이 정보를 제공</li>
+<li>다양한 환경에서의 깊이 추정의 정확도를 개선</li>
+<li>특히 도시 환경과 같이 복잡한 실외 환경에서의 성능 향상
+<ul dir="auto">
+<li>이를 위해 다양한 데이터셋에서 사전 학습된 모델을 사용</li>
+<li>특정 데이터셋에서 미세 조정하여 모델의 일반화 능력 강화</li>
+</ul>
+</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-방법론" class="anchor" aria-hidden="true" tabindex="-1" href="#방법론"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>방법론</h2>
+<ul dir="auto">
+<li>Relative 및 Metric Depth Estimation의 결합을 통해 깊이 추정 방법론 혁신</li>
+<li>ZoeDepth는 MiDaS 모델을 기반으로 하여 깊이 추정의 정확도 향상</li>
+<li>새로운 'metric bins module'을 통한 깊이 추정의 개선
+<ul dir="auto">
+<li>이 모듈은 깊이 추정의 정밀도를 높이는 데 중요한 역할을 함</li>
+<li>다양한 환경에서의 깊이 추정 정확도를 위해 설계됨</li>
+</ul>
+</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-모델-아키텍처" class="anchor" aria-hidden="true" tabindex="-1" href="#모델-아키텍처"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>모델 아키텍처</h2>
+<ul dir="auto">
+<li>기존 MiDaS 깊이 추정 프레임워크와 DPT 아키텍처를 결합하여 구축</li>
+<li>RGB 이미지를 처리하여 다양한 해상도에서 깊이 정보 추출</li>
+<li>MiDaS 디코더는 상대적 깊이 정보를 생성하기 위해 다양한 크기의 특징 맵을 결합</li>
+<li>'metric bins module'은 픽셀별 깊이 bin 중심을 계산하고 이를 선형 결합하여 측정적 깊이 정보를 도출</li>
+<li>다양한 트랜스포머 백본, 예를 들어 BEiT와 Swin Transformer를 MiDaS 인코더에 적용하여 깊이 추정의 정확도 및 성능 개선</li>
+</ul>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/79dd866fe43bb62df8f9fcbaeb159eba7632b00841516b54d3f82926b628961c/68747470733a2f2f692e696d6775722e636f6d2f6e574d5061336e2e706e67"><img src="https://camo.githubusercontent.com/79dd866fe43bb62df8f9fcbaeb159eba7632b00841516b54d3f82926b628961c/68747470733a2f2f692e696d6775722e636f6d2f6e574d5061336e2e706e67" alt="" data-canonical-src="https://i.imgur.com/nWMPa3n.png" style="max-width: 100%;"></a></p>
+<h3 tabindex="-1" dir="auto"><a id="user-content-backbone" class="anchor" aria-hidden="true" tabindex="-1" href="#backbone"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Backbone</h3>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/348ca28c538ae9f43ee70eae98756376b86a7a88e6c303fad42696ec4188e72d/68747470733a2f2f692e696d6775722e636f6d2f50734150745a582e706e67"><img src="https://camo.githubusercontent.com/348ca28c538ae9f43ee70eae98756376b86a7a88e6c303fad42696ec4188e72d/68747470733a2f2f692e696d6775722e636f6d2f50734150745a582e706e67" alt="" data-canonical-src="https://i.imgur.com/PsAPtZX.png" style="max-width: 100%;"></a></p>
+<h3 tabindex="-1" dir="auto"><a id="user-content-metric-bins-module" class="anchor" aria-hidden="true" tabindex="-1" href="#metric-bins-module"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>metric bins module</h3>
+<ul dir="auto">
+<li>ZoeDepth에서 'metric bins module'은 깊이 추정의 정확도를 혁신적으로 향상시키는 핵심 요소입니다.</li>
+<li>이 모듈은 각 픽셀별로 깊이 bin의 중심을 예측하는 기능을 함으로써, 보다 세밀한 깊이 계산을 가능하게 합니다.</li>
+<li>깊이 추정의 정밀도를 높이는 데 중요한 역할을 하며, 다양한 환경에서의 깊이 추정 정확도 향상에 기여합니다.</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-데이터셋과-사전-훈련" class="anchor" aria-hidden="true" tabindex="-1" href="#데이터셋과-사전-훈련"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>데이터셋과 사전 훈련</h2>
+<ul dir="auto">
+<li>12개의 다양한 데이터셋을 사용</li>
+<li>주요 데이터셋으로는 실내 환경에는 NYU Depth v2, 실외 환경에는 KITTI 사용</li>
+<li>추가적으로 Relative Depth Estimation을 위한 백본 사전 훈련으로 HRWSI, BlendedMVS, ReDWeb, DIML-Indoor, 3D Movies, MegaDepth, WSVD, TartanAir, ApolloScape, IRS 등의 데이터셋 사용</li>
+<li>이들 데이터셋은 모델의 다양한 환경에 대한 일반화 능력을 강화하기 위해 선택</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-loss-function-and-evaluation-metrics" class="anchor" aria-hidden="true" tabindex="-1" href="#loss-function-and-evaluation-metrics"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Loss Function and Evaluation Metrics</h2>
+<ol dir="auto">
+<li>
+<p dir="auto">Absolute Relative Error (REL):
+$$
+\quad \text{REL} = \frac{1}{M} \sum_{i=1}^{M} \left| \frac{d_i - \hat{d}_i}{d_i} \right|
+$$</p>
+</li>
+<li>
+<p dir="auto">Root Mean Squared Error (RMSE):
+$$
+\quad \text{RMSE} = \sqrt{\frac{1}{M} \sum_{i=1}^{M} \left| d_i - \hat{d}_i \right|^2}
+$$</p>
+</li>
+<li>
+<p dir="auto">Average Log10 Error:
+$$
+\quad \text{Average Log10 Error} = \frac{1}{M} \sum_{i=1}^{M} \left| \log_{10}(d_i) - \log_{10}(\hat{d}_i) \right|
+$$</p>
+</li>
+<li>
+<p dir="auto">Threshold Accuracy <math-renderer class="js-inline-math" style="display: inline" data-static-url="https://github.githubassets.com/static" data-run-id="b2131616f66674ab9055b7f24dbf5c1c" data-catalyst=""><mjx-container style="position: relative;" jax="CHTML" class="MathJax CtxtMenu_Attached_0" tabindex="0" ctxtmenu_counter="0"><mjx-math aria-hidden="true" class="MJX-TEX"><mjx-mo class="mjx-n"><mjx-c class="mjx-c28"></mjx-c></mjx-mo><mjx-msup><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D6FF TEX-I"></mjx-c></mjx-mi><mjx-script style="vertical-align: 0.363em;"><mjx-mi size="s" class="mjx-i"><mjx-c class="mjx-c1D45B TEX-I"></mjx-c></mjx-mi></mjx-script></mjx-msup><mjx-mo class="mjx-n"><mjx-c class="mjx-c29"></mjx-c></mjx-mo></mjx-math><mjx-assistive-mml display="inline" unselectable="on"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><msup><mi>δ</mi><mi>n</mi></msup><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container></math-renderer>:
+$$
+\begin{align*}
+\text{Percentage of pixels where} \quad \max \left( \frac{d_i}{\hat{d}_i}, \frac{\hat{d}_i}{d_i} \right) &lt; 1.25^n \quad \text{for } n = 1, 2, 3 \
+\delta^n &amp;: \text{Threshold Accuracy for } n = 1, 2, 3 \
+d_i &amp;: \text{Ground Truth Depth at pixel } i \
+\hat{d}_i &amp;: \text{Predicted Depth at pixel } i \
+M &amp;: \text{Total Number of Pixels in the Image}
+\end{align*}
+$$</p>
+</li>
+<li>
+<p dir="auto">Mean Relative Improvement across Datasets (mRID):
+$$
+\quad \text{mRID} = \frac{1}{M} \sum_{i=1}^{M} \text{RID}_i
+$$</p>
+</li>
+<li>
+<p dir="auto">Mean Relative Improvement across Metrics (mRI$\theta$)
+$$
+\quad \text{mRI}\theta = \frac{1}{N} \sum_{j=1}^{N} \text{RI}\theta_j
+$$</p>
+</li>
+<li>
+<p dir="auto">Relative Improvement (RI) for lower-is-better metrics:
+$$
+\quad \text{RI} = \frac{r - t}{r}
+$$</p>
+</li>
+<li>
+<p dir="auto">Relative Improvement (RI) for higher-is-better metrics:
+$$ \quad \text{RI} = \frac{t - r}{r} $$
+$$
+\ r: \text{Reference Score} \ t: \text{Target Score} $$</p>
+</li>
+</ol>
+<ul dir="auto">
+<li>ZoeDepth는 scale-invariant log loss를 사용하여 깊이 추정의 정확도 측정
+<ul dir="auto">
+<li>이 loss function은 깊이 추정에서의 스케일 불변성을 보장하여, 다양한 크기의 객체에 대한 깊이 추정을 일관되게 수행할 수 있도록 함</li>
+</ul>
+</li>
+<li>모델의 성능 평가에는 정확도, 정밀도, 재현율과 같은 표준 메트릭스가 사용</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-결과" class="anchor" aria-hidden="true" tabindex="-1" href="#결과"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>결과</h2>
+<p dir="auto">Figure 10. Zero-shot transfer to the Virtual KITTI 2 dataset. Invalid regions are indicated in gray.
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/d1d5bb74c30f27774d9e2e0df11640d7f343e7979a2a63d38bc48b1a8ef08bf5/68747470733a2f2f692e696d6775722e636f6d2f6f6831485a6e6a2e706e67"><img src="https://camo.githubusercontent.com/d1d5bb74c30f27774d9e2e0df11640d7f343e7979a2a63d38bc48b1a8ef08bf5/68747470733a2f2f692e696d6775722e636f6d2f6f6831485a6e6a2e706e67" alt="" data-canonical-src="https://i.imgur.com/oh1HZnj.png" style="max-width: 100%;"></a></p>
+<p dir="auto">Figure 11. Zero-shot transfer to the DDAD dataset. Ground truth depth is too sparse to visualize here.
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/320c5f3e43f94e759e5ac15ac85b0078fbafa46132e18898814c12fd6825569c/68747470733a2f2f692e696d6775722e636f6d2f564e717676324d2e706e67"><img src="https://camo.githubusercontent.com/320c5f3e43f94e759e5ac15ac85b0078fbafa46132e18898814c12fd6825569c/68747470733a2f2f692e696d6775722e636f6d2f564e717676324d2e706e67" alt="" data-canonical-src="https://i.imgur.com/VNqvv2M.png" style="max-width: 100%;"></a></p>
+<p dir="auto"><a href="https://paperswithcode.com/paper/zoedepth-zero-shot-transfer-by-combining/review/" rel="nofollow">https://paperswithcode.com/paper/zoedepth-zero-shot-transfer-by-combining/review/</a></p>
+<p dir="auto"><strong>Table 2: Comparison with existing works when trained on NYU and&nbsp;KITTI. Results are reported using the REL metric. The mRID column denotes the&nbsp;mean&nbsp;relative improvement with respect to NeWCRFs across datasets. X in the model name, means no architecture change and no pre-training. M12 means that the model was pre-trained (using our base model based on the DPT architecture with the BEiT-L encoder). All models are fine-tuned on NYU and&nbsp;KITTI. †&nbsp;denotes a single metric head (shared); single-head training allows us to adapt prior models without major changes. Best results are in bold, second best are underlined. PixelBins&nbsp;[pixelbinsSarwari:EECS-2021-32] did not converge without modification. We also tried to train AdaBins [bhat2021adabins] across both datasets, but despite our best effort and extensive hyperparameter tuning, it did not converge.</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Method</td>
+<td>NYU</td>
+<td>KITTI</td>
+<td>iBims-1</td>
+<td>vKITTI-2</td>
+<td>mRID</td>
+</tr>
+<tr>
+<td>Baselines: no modification</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DORN-X-NK†</td>
+<td>0.156</td>
+<td>0.115</td>
+<td>0.287</td>
+<td>0.259</td>
+<td>-45.7%</td>
+</tr>
+<tr>
+<td>LocalBins-X-NK†</td>
+<td>0.245</td>
+<td>0.133</td>
+<td>0.296</td>
+<td>0.265</td>
+<td>-74.0%</td>
+</tr>
+<tr>
+<td>PixelBins-X-NK†</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>NeWCRFs-X-NK†</td>
+<td>0.109</td>
+<td>0.076</td>
+<td>0.189</td>
+<td>0.190</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>Baselines: modified to use our pre-trained DPT-BEiT-L as backbone</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DORN-M12-NK†</td>
+<td>0.110</td>
+<td>0.081</td>
+<td>0.242</td>
+<td>0.215</td>
+<td>-12.2%</td>
+</tr>
+<tr>
+<td>LocalBins-M12-NK†</td>
+<td>0.086</td>
+<td>0.071</td>
+<td>0.221</td>
+<td>0.121</td>
+<td>11.8%</td>
+</tr>
+<tr>
+<td>PixelBins-M12-NK†</td>
+<td>0.088</td>
+<td>0.071</td>
+<td>0.232</td>
+<td>0.119</td>
+<td>10.1%</td>
+</tr>
+<tr>
+<td>NeWCRFs-M12-NK†</td>
+<td>0.088</td>
+<td>0.073</td>
+<td>0.233</td>
+<td>0.124</td>
+<td>8.7%</td>
+</tr>
+<tr>
+<td>Ours: different configuations for fair comparison</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ZoeD-X-NK†</td>
+<td>0.095</td>
+<td>0.074</td>
+<td>0.187</td>
+<td>0.184</td>
+<td>4.9%</td>
+</tr>
+<tr>
+<td>ZoeD-M12-NK†</td>
+<td>0.081</td>
+<td>0.061</td>
+<td>0.210</td>
+<td>0.112</td>
+<td>18.8%</td>
+</tr>
+<tr>
+<td>ZoeD-M12-NK</td>
+<td>0.077</td>
+<td>0.057</td>
+<td>0.186</td>
+<td>0.105</td>
+<td>25.2%</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto"><strong>Table 4: Quantitative results for zero-shot transfer to four unseen outdoor datasets. mRIθ denotes the&nbsp;mean&nbsp;relative improvement with respect to NeWCRFs across all metrics (δ1, REL,&nbsp;RMSE). Best results are in bold, second best are underlined.</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Virtual KITTI 2</td>
+<td></td>
+<td></td>
+<td></td>
+<td>DDAD</td>
+<td></td>
+<td></td>
+<td></td>
+<td>DIML Outdoor</td>
+<td></td>
+<td></td>
+<td></td>
+<td>DIODE Outdoor</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Method</td>
+<td>δ1&thinsp;↑</td>
+<td>REL&thinsp;↓</td>
+<td>RMSE ↓</td>
+<td>mRIθ&thinsp;↑</td>
+<td>δ1&thinsp;↑</td>
+<td>REL&thinsp;↓</td>
+<td>RMSE ↓</td>
+<td>mRIθ&thinsp;↑</td>
+<td>δ1&thinsp;↑</td>
+<td>REL&thinsp;↓</td>
+<td>RMSE ↓</td>
+<td>mRIθ&thinsp;↑</td>
+<td>δ1&thinsp;↑</td>
+<td>REL&thinsp;↓</td>
+<td>RMSE ↓</td>
+<td>mRIθ&thinsp;↑</td>
+</tr>
+<tr>
+<td>BTS&nbsp;[bts_lee2019big]</td>
+<td>0.831</td>
+<td>0.115</td>
+<td>5.368</td>
+<td>2.5%</td>
+<td>0.805</td>
+<td>0.147</td>
+<td>7.550</td>
+<td>-17.8%</td>
+<td>0.016</td>
+<td>1.785</td>
+<td>5.908</td>
+<td>24.3%</td>
+<td>0.171</td>
+<td>0.837</td>
+<td>10.48</td>
+<td>-4.8%</td>
+</tr>
+<tr>
+<td>AdaBins&nbsp;[bhat2021adabins]</td>
+<td>0.826</td>
+<td>0.122</td>
+<td>5.420</td>
+<td>0.0%</td>
+<td>0.766</td>
+<td>0.154</td>
+<td>8.560</td>
+<td>-26.7%</td>
+<td>0.013</td>
+<td>1.941</td>
+<td>6.272</td>
+<td>9.7%</td>
+<td>0.161</td>
+<td>0.863</td>
+<td>10.35</td>
+<td>-7.2%</td>
+</tr>
+<tr>
+<td>LocalBins&nbsp;[bhat2022localbins]</td>
+<td>0.810</td>
+<td>0.127</td>
+<td>5.981</td>
+<td>-5.3%</td>
+<td>0.777</td>
+<td>0.151</td>
+<td>8.139</td>
+<td>-23.2%</td>
+<td>0.016</td>
+<td>1.820</td>
+<td>6.706</td>
+<td>19.5%</td>
+<td>0.170</td>
+<td>0.821</td>
+<td>10.27</td>
+<td>-3.6%</td>
+</tr>
+<tr>
+<td>NeWCRFs&nbsp;[yuan2022new]</td>
+<td>0.829</td>
+<td>0.117</td>
+<td>5.691</td>
+<td>0.0%</td>
+<td>0.874</td>
+<td>0.119</td>
+<td>6.183</td>
+<td>0.0%</td>
+<td>0.010</td>
+<td>1.918</td>
+<td>6.283</td>
+<td>0.0%</td>
+<td>0.176</td>
+<td>0.854</td>
+<td>9.228</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>ZoeD-X-K</td>
+<td>0.837</td>
+<td>0.112</td>
+<td>5.338</td>
+<td>3.8%</td>
+<td>0.790</td>
+<td>0.137</td>
+<td>7.734</td>
+<td>-16.6%</td>
+<td>0.005</td>
+<td>1.756</td>
+<td>6.180</td>
+<td>-13.3%</td>
+<td>0.242</td>
+<td>0.799</td>
+<td>7.806</td>
+<td>19.8%</td>
+</tr>
+<tr>
+<td>ZoeD-M12-K</td>
+<td>0.864</td>
+<td>0.100</td>
+<td>4.974</td>
+<td>10.5%</td>
+<td>0.835</td>
+<td>0.129</td>
+<td>7.108</td>
+<td>-9.3%</td>
+<td>0.003</td>
+<td>1.921</td>
+<td>6.978</td>
+<td>-27.1%</td>
+<td>0.269</td>
+<td>0.852</td>
+<td>6.898</td>
+<td>26.1%</td>
+</tr>
+<tr>
+<td>ZoeD-M12-NK</td>
+<td>0.850</td>
+<td>0.105</td>
+<td>5.095</td>
+<td>7.8%</td>
+<td>0.824</td>
+<td>0.138</td>
+<td>7.225</td>
+<td>-12.8%</td>
+<td>0.292</td>
+<td>0.641</td>
+<td>3.610</td>
+<td>976.4%</td>
+<td>0.208</td>
+<td>0.757</td>
+<td>7.569</td>
+<td>15.8%</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto"><strong>Table 5: Metric head variants. The “Config” column specifies the split factor in case of the splitter variant and the number of attractors {nla} for attractor variants. The reported results are all based on ZoeD-M12-N evaluated on&nbsp;NYU Depth v2. Best results are in bold, second best are underlined.</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Metric head type</td>
+<td></td>
+<td></td>
+<td>REL ↓</td>
+<td>RMSE ↓</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Variant</td>
+<td>Config</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Naive head</td>
+<td>-</td>
+<td>-</td>
+<td>0.096</td>
+<td>0.335</td>
+</tr>
+<tr>
+<td>Metric bins</td>
+<td>Splitter</td>
+<td>factor = 2</td>
+<td>0.085</td>
+<td>0.301</td>
+</tr>
+<tr>
+<td>Metric bins</td>
+<td>Exponential Attractor</td>
+<td>{16,8,4,1}</td>
+<td>0.086</td>
+<td>0.305</td>
+</tr>
+<tr>
+<td>Metric bins</td>
+<td>Inverse Attractor</td>
+<td>{8,8,8,8}</td>
+<td>0.081</td>
+<td>0.295</td>
+</tr>
+<tr>
+<td>Metric bins</td>
+<td>Inverse Attractor</td>
+<td>{16,2,2,16}</td>
+<td>0.081</td>
+<td>0.291</td>
+</tr>
+<tr>
+<td>Metric bins</td>
+<td>Inverse Attractor</td>
+<td>{1,4,8,16}</td>
+<td>0.080</td>
+<td>0.287</td>
+</tr>
+<tr>
+<td>Metric bins</td>
+<td>Inverse Attractor</td>
+<td>{16,8,4,1}</td>
+<td>0.075</td>
+<td>0.270</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto"><strong>Table 6: Router variants. The reported results are all based on ZoeD-M12-NK evaluated on&nbsp;NYU Depth v2&nbsp;and&nbsp;KITTI. Best results are in bold, second best are underlined.</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Labels required</td>
+<td></td>
+<td>REL ↓</td>
+<td></td>
+<td>RMSE ↓</td>
+<td></td>
+</tr>
+<tr>
+<td>Variant</td>
+<td>Train</td>
+<td>Inference</td>
+<td>NYU</td>
+<td>KITTI</td>
+<td>NYU</td>
+<td>KITTI</td>
+</tr>
+<tr>
+<td>Labeled Router</td>
+<td>✓</td>
+<td>✓</td>
+<td>0.080</td>
+<td>0.057</td>
+<td>0.290</td>
+<td>2.452</td>
+</tr>
+<tr>
+<td>Trained Router</td>
+<td>✓</td>
+<td>✗</td>
+<td>0.077</td>
+<td>0.057</td>
+<td>0.277</td>
+<td>2.362</td>
+</tr>
+<tr>
+<td>Auto Router</td>
+<td>✗</td>
+<td>✗</td>
+<td>0.102</td>
+<td>0.075</td>
+<td>0.377</td>
+<td>2.584</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto"><strong>Table 7: Overview of datasets used in metric depth fine-tuning and evaluation of ZoeDepth architectures. For demonstrating zero-shot transfer, we evaluate across a total of 13165 indoor samples and 6597 outdoor samples. While HyperSim is predominantly an indoor dataset, there are several samples exhibiting depth ranges exceeding 10 m, so we relax the maximum evaluation depth up to 80 m. ‡ : To follow prior works [yuan2022new, bhat2021adabins], we crop the sample and then use scaled Garg crop for evaluation. We verify the transforms by reproducing results obtained by using respective pre-trained checkpoints provided by prior works.</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>Seen in</td>
+<td># Train</td>
+<td># Eval</td>
+<td>Eval Depth [m]</td>
+<td></td>
+<td>Crop</td>
+</tr>
+<tr>
+<td>Dataset</td>
+<td>Domain</td>
+<td>Type</td>
+<td>Training?</td>
+<td>Samples</td>
+<td>Samples</td>
+<td>Min</td>
+<td>Max</td>
+<td>Method</td>
+</tr>
+<tr>
+<td>NYU Depth v2&nbsp;[Silberman2012]</td>
+<td>Indoor</td>
+<td>Real</td>
+<td>✓</td>
+<td>24k&nbsp;[bts_lee2019big]</td>
+<td>654</td>
+<td>1e-3</td>
+<td>10</td>
+<td>Eigen</td>
+</tr>
+<tr>
+<td>SUN RGB-D&nbsp;[Song2015_sunrgbd]</td>
+<td>Indoor</td>
+<td>Real</td>
+<td>✗</td>
+<td>-</td>
+<td>5050</td>
+<td>1e-3</td>
+<td>8</td>
+<td>Eigen</td>
+</tr>
+<tr>
+<td>iBims-1&nbsp;[koch2019]</td>
+<td>Indoor</td>
+<td>Real</td>
+<td>✗</td>
+<td>-</td>
+<td>100</td>
+<td>1e-3</td>
+<td>10</td>
+<td>Eigen</td>
+</tr>
+<tr>
+<td>DIODE Indoor&nbsp;[diode_dataset]</td>
+<td>Indoor</td>
+<td>Real</td>
+<td>✗</td>
+<td>-</td>
+<td>325</td>
+<td>1e-3</td>
+<td>10</td>
+<td>Eigen</td>
+</tr>
+<tr>
+<td>HyperSim&nbsp;[roberts:2021]</td>
+<td>Indoor</td>
+<td>Synthetic</td>
+<td>✗</td>
+<td>-</td>
+<td>7690</td>
+<td>1e-3</td>
+<td>80</td>
+<td>Eigen</td>
+</tr>
+<tr>
+<td>KITTI&nbsp;[Menze_2015_CVPR]</td>
+<td>Outdoor</td>
+<td>Real</td>
+<td>✓</td>
+<td>26k&nbsp;[bts_lee2019big]</td>
+<td>697</td>
+<td>1e-3</td>
+<td>80</td>
+<td>Garg‡</td>
+</tr>
+<tr>
+<td>Virtual KITTI 2&nbsp;[cabon2020vkitti2]</td>
+<td>Outdoor</td>
+<td>Synthetic</td>
+<td>✗</td>
+<td>-</td>
+<td>1701</td>
+<td>1e-3</td>
+<td>80</td>
+<td>Garg‡</td>
+</tr>
+<tr>
+<td>DDAD&nbsp;[packnet]</td>
+<td>Outdoor</td>
+<td>Real</td>
+<td>✗</td>
+<td>-</td>
+<td>3950</td>
+<td>1e-3</td>
+<td>80</td>
+<td>Garg</td>
+</tr>
+<tr>
+<td>DIML Outdoor&nbsp;[kim2018deep]</td>
+<td>Outdoor</td>
+<td>Real</td>
+<td>✗</td>
+<td>-</td>
+<td>500</td>
+<td>1e-3</td>
+<td>80</td>
+<td>Garg</td>
+</tr>
+<tr>
+<td>DIODE Outdoor&nbsp;[diode_dataset]</td>
+<td>Outdoor</td>
+<td>Real</td>
+<td>✗</td>
+<td>-</td>
+<td>446</td>
+<td>1e-3</td>
+<td>80</td>
+<td>Garg</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">Table 17. Parameter comparison of ZoeDepth models with different backbones and state of the art models. Note that the number of parameters of ZoeDepth only varies with the backbone and is the same for all variants trained on different dataset combinations, e.g., ZoeD-X-N, ZoeD-M12-N and ZoeD-M12-NK, etc</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Method</td>
+<td>Encoder</td>
+<td># Params</td>
+</tr>
+<tr>
+<td>Eigen&nbsp;et al.&nbsp;[Eigen2014]</td>
+<td>-</td>
+<td>141M</td>
+</tr>
+<tr>
+<td>Laina&nbsp;et al.&nbsp;[Laina2016]</td>
+<td>ResNet-50</td>
+<td>64M</td>
+</tr>
+<tr>
+<td>Hao&nbsp;et al.&nbsp;[Hao2018DetailPD]</td>
+<td>ResNet-101</td>
+<td>60M</td>
+</tr>
+<tr>
+<td>Lee&nbsp;et al.&nbsp;[Lee2011]</td>
+<td>-</td>
+<td>119M</td>
+</tr>
+<tr>
+<td>Fu&nbsp;et al.&nbsp;[Fu2018DeepOR]</td>
+<td>ResNet-101</td>
+<td>110M</td>
+</tr>
+<tr>
+<td>SharpNet&nbsp;[Ramamonjisoa_2019_ICCV]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Hu&nbsp;et al.&nbsp;[Hu2018RevisitingSI]</td>
+<td>SENet-154</td>
+<td>157M</td>
+</tr>
+<tr>
+<td>Chen&nbsp;et al.&nbsp;[ijcai2019-98]</td>
+<td>SENet</td>
+<td>210M</td>
+</tr>
+<tr>
+<td>Yin&nbsp;et al.&nbsp;[Yin_2019_ICCV]</td>
+<td>ResNeXt-101</td>
+<td>114M</td>
+</tr>
+<tr>
+<td>BTS&nbsp;[bts_lee2019big]</td>
+<td>DenseNet-161</td>
+<td>47M</td>
+</tr>
+<tr>
+<td>AdaBins&nbsp;[bhat2021adabins]</td>
+<td>EfficientNet-B5</td>
+<td>78M</td>
+</tr>
+<tr>
+<td>LocalBins&nbsp;[bhat2022localbins]</td>
+<td>EfficientNet-B5</td>
+<td>74M</td>
+</tr>
+<tr>
+<td>NeWCRFs&nbsp;[yuan2022new]</td>
+<td>Swin-L</td>
+<td>270M</td>
+</tr>
+<tr>
+<td>ZoeDepth (S-L)</td>
+<td>Swin-L</td>
+<td>212M</td>
+</tr>
+<tr>
+<td>ZoeDepth (S2-T)</td>
+<td>Swin2-T</td>
+<td>42M</td>
+</tr>
+<tr>
+<td>ZoeDepth (S2-B)</td>
+<td>Swin2-B</td>
+<td>102M</td>
+</tr>
+<tr>
+<td>ZoeDepth (S2-L)</td>
+<td>Swin2-L</td>
+<td>214M</td>
+</tr>
+<tr>
+<td>ZoeDepth (B-B)</td>
+<td>Beit-B</td>
+<td>112M</td>
+</tr>
+<tr>
+<td>ZoeDepth (B-L)</td>
+<td>Beit-L</td>
+<td>345M</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">Performance (REL):</p>
+<table>
+<thead>
+<tr>
+<th align="center">Model</th>
+<th align="center">Backbone</th>
+<th align="center">NYU</th>
+<th>SUN RGBD</th>
+<th>iBims-1</th>
+<th>DIODE Indoor</th>
+<th>Hypersim</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ZoeD-M12-N</td>
+<td align="center">BEiT-L-384</td>
+<td align="center">0.075</td>
+<td>0.119</td>
+<td>0.169</td>
+<td>0.327</td>
+<td>0.410</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">Model</th>
+<th align="center">Backbone</th>
+<th align="center">NYU</th>
+<th>SUN RGBD</th>
+<th>iBims-1</th>
+<th>DIODE Indoor</th>
+<th>Hypersim</th>
+<th>Virtual KITTI 2</th>
+<th>DDAD</th>
+<th>DIML Outdoor</th>
+<th>DIODE Outdoor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ZoeD-M12-NK</td>
+<td align="center">BEiT-L-384</td>
+<td align="center">0.077</td>
+<td>0.123</td>
+<td>0.186</td>
+<td>0.331</td>
+<td>0.419</td>
+<td>0.105</td>
+<td>0.138</td>
+<td>0.641</td>
+<td>0.757</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">Model</th>
+<th align="center">Backbone</th>
+<th>Virtual KITTI 2</th>
+<th>DDAD</th>
+<th>DIML Outdoor</th>
+<th>DIODE Outdoor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ZoeD-M12-K</td>
+<td align="center">BEiT-L-384</td>
+<td>0.100</td>
+<td>0.129</td>
+<td>1.921</td>
+<td>0.852</td>
+</tr>
+</tbody>
+</table>
+<h2 tabindex="-1" dir="auto"><a id="user-content-citation" class="anchor" aria-hidden="true" tabindex="-1" href="#citation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>Citation</h2>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>@misc{https://doi.org/10.48550/arxiv.2302.12288,
+  doi = {10.48550/ARXIV.2302.12288},
+  
+  url = {https://arxiv.org/abs/2302.12288},
+  
+  author = {Bhat, Shariq Farooq and Birkl, Reiner and Wofk, Diana and Wonka, Peter and Müller, Matthias},
+  
+  keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth},
+  
+  publisher = {arXiv},
+  
+  year = {2023},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="@misc{https://doi.org/10.48550/arxiv.2302.12288,
+  doi = {10.48550/ARXIV.2302.12288},
+  
+  url = {https://arxiv.org/abs/2302.12288},
+  
+  author = {Bhat, Shariq Farooq and Birkl, Reiner and Wofk, Diana and Wonka, Peter and Müller, Matthias},
+  
+  keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {ZoeDepth: Zero-shot Transfer by Combining Relative and Metric Depth},
+  
+  publisher = {arXiv},
+  
+  year = {2023},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+</article>
+{% endblock %}

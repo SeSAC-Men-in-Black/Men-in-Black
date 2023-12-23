@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<article class="markdown-body entry-content container-lg" itemprop="text">
+    <div class="section-title" style="margin-top:100px">
+                    <h2>Project</h2>
+                    <p>Traffic Light Recognition</p>
+                </div>
+
+<h2 tabindex="-1" dir="auto"><a id="user-content-진행-과정" class="anchor" aria-hidden="true" tabindex="-1" href="#진행-과정"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>진행 과정:</h2>
+<ul dir="auto">
+<li>
+<p dir="auto">Model: Yolov8m epochs = 200, batch = 32, lrf = 0.001</p>
+</li>
+<li>
+<p dir="auto">Dataset: <a href="https://universe.roboflow.com/trafficlightdetect/traffic-light-ke5b5" rel="nofollow">Roboflow - Traffic light Computer Vision Project</a></p>
+<ul dir="auto">
+<li>1,000 images (Train / Valid / Test = 701 / 199 / 100)
+<ul dir="auto">
+<li>Augmentations (Train Image 4206 장으로 데이터 증강)
+<ul dir="auto">
+<li>RandomResizedCrop(640)  # 이미지 크기를 무작위로 자르고 640x640 크기로 조절</li>
+<li>RandomHorizontalFlip(),  # 50% 확률로 좌우 반전</li>
+<li>ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),  # 색상, 대비, 채도 및 색조를 무작위로 조절</li>
+<li>RandomRotation(10),  # 최대 10도까지 무작위로 회전</li>
+<li>RandomAffine(degrees=0, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=10),  # 무작위로 이동, 크기 조절, 기울임 변환</li>
+<li>GaussianBlur(kernel_size=3),  # 가우시안 블러 적용</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/CDPQNsS.png"><img width="857" alt="Screenshot 2023-12-21 at 1 54 37 PM" src="https://i.imgur.com/CDPQNsS.png" style="max-width: 100%;"></a>
+<ul dir="auto">
+<li>Training:</li>
+</ul>
+<p dir="auto">hyper parameters:</p>
+<p dir="auto"><code>Ultralytics YOLOv8.0.73 🚀 Python-3.10.9 torch-2.0.1 CUDA:0 (Tesla T4, 14972MiB) yolo/engine/trainer: task=detect, mode=train, model=yolov8m.pt, data=/content/Traffic_light/data.yaml, epochs=200, patience=50, batch=32, imgsz=640, save=True, save_period=-1, cache=False, device=None, workers=8, project=None, name=None, exist_ok=False, pretrained=False, optimizer=SGD, verbose=True, seed=0, deterministic=True, single_cls=False, image_weights=False, rect=False, cos_lr=False, close_mosaic=0, resume=False, amp=True, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, show=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, vid_stride=1, line_thickness=3, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, boxes=True, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=False, opset=None, workspace=4, nms=False, lr0=0.01, lrf=0.001, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, label_smoothing=0.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0, copy_paste=0.0, cfg=None, v5loader=False, tracker=botsort.yaml, save_dir=runs/detect/train21 Overriding model.yaml nc=80 with nc=4</code></p>
+<p dir="auto">model summary:</p>
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/zHxYtRz.png"><img width="765" alt="Screenshot 2023-12-21 at 1 46 12 PM" src="https://i.imgur.com/zHxYtRz.png" style="max-width: 100%;"></a>
+<h2 tabindex="-1" dir="auto"><a id="user-content-wandb" class="anchor" aria-hidden="true" tabindex="-1" href="#wandb"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>WandB</h2>
+<ul dir="auto">
+<li>
+<p dir="auto">Confusion matrix
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/mbgaNKJ.png"><img src="https://i.imgur.com/mbgaNKJ.png" alt="Traffic_light_confusion_matrix" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p dir="auto">F1 curve
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/6AlM3Oe.png"><img src="https://i.imgur.com/6AlM3Oe.png" alt="Traffic_light_F1_curve" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p dir="auto">P curve
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/QnGcck9.png"><img src="https://i.imgur.com/QnGcck9.png" alt="Traffic_light_P_curve" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p dir="auto">R curve
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/0C40TS2.png"><img src="https://i.imgur.com/0C40TS2.png" alt="Traffic_light_R_curve" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p dir="auto">PR curve
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/INDMe1T.png"><img src="https://i.imgur.com/INDMe1T.png" alt="Traffic_light_PR_curve" style="max-width: 100%;"></a></p>
+</li>
+<li>
+<p dir="auto">Result
+<a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/B2UgORi.png"><img src="https://i.imgur.com/B2UgORi.png" alt="Traffic_light_result" style="max-width: 100%;"></a></p>
+</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-결과" class="anchor" aria-hidden="true" tabindex="-1" href="#결과"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>결과</h2>
+<ul dir="auto">
+<li>Train image</li>
+</ul>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/9fT0Sl4.png"><img src="https://i.imgur.com/9fT0Sl4.png" alt="Traffic_light_train_image_sample" style="max-width: 100%;"></a></p>
+<ul dir="auto">
+<li>Valid Image</li>
+</ul>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://velog.velcdn.com/images/syshin0116/post/35258dca-0b84-4a8d-b882-221e4b43debf/image.png"><img src="https://velog.velcdn.com/images/syshin0116/post/35258dca-0b84-4a8d-b882-221e4b43debf/image.png" alt="Traffic_light_valid_image_sample" style="max-width: 100%;"></a></p>
+</article>
+{% endblock %}
