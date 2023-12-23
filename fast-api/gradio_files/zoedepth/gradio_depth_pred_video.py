@@ -6,6 +6,8 @@ import cv2
 from ultralytics import YOLO
 import tempfile
 
+import os
+
 # Load YOLO model for vehicle detection
 detection_model = YOLO('yolov8m.pt')
 
@@ -28,11 +30,12 @@ def create_demo(depth_model):
         input_video = gr.Video(label="Input Video")
 
         with gr.Row():
-            output_video_1 = gr.Video(label="Video with Detections")
-            output_video_2 = gr.Video(label="Depth Map Video")
+            output_video_1 = gr.Video(label="Video with Detections", interactive=True)
+            output_video_2 = gr.Video(label="Depth Map Video", interactive=True)
         with gr.Row():
-            output_video_3 = gr.Video(label="Depth Map with Detections and Distance")
-            output_video_4 = gr.Video(label="Overlay Video")
+            output_video_3 = gr.Video(label="Depth Map with Detections and Distance", interactive=True)
+            output_video_4 = gr.Video(label="Overlay Video", interactive=True)
+
 
         def process_video(video, depth_model):
             try:
@@ -41,13 +44,19 @@ def create_demo(depth_model):
                 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
                 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
             
-                output_files = [tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) for _ in range(4)]
+                # Specify the directory to save the videos
+                save_dir = "output_videos"
+                os.makedirs(save_dir, exist_ok=True)
+
+                # Create file paths in the chosen directory
+                output_filenames = ["video_with_detections.mp4", "depth_map_video.mp4", 
+                                    "depth_map_with_detections.mp4", "overlay_video.mp4"]
                 video_writers = [cv2.VideoWriter(
-                    filename=output_file.name,
-                    fourcc=cv2.VideoWriter_fourcc(*'avci'),
-                    fps=fps,
-                    frameSize=(width, height)
-                ) for output_file in output_files]
+                                    filename=os.path.join(save_dir, filename),
+                                    fourcc=cv2.VideoWriter_fourcc(*'h264'),
+                                    fps=fps,
+                                    frameSize=(width, height)
+                                ) for filename in output_filenames]
             
                 while cap.isOpened():
                     ret, frame = cap.read()
@@ -90,7 +99,7 @@ def create_demo(depth_model):
                 for writer in video_writers:
                     writer.release()
             
-                output_paths = [output_file.name for output_file in output_files]
+                output_paths = [os.path.join(save_dir, filename) for filename in output_filenames]
                 print("Processing complete. Output paths:", output_paths)
                 return output_paths
     
@@ -99,6 +108,7 @@ def create_demo(depth_model):
                 return []
 
 
+        
         submit = gr.Button("Submit")
 
         # Add examples

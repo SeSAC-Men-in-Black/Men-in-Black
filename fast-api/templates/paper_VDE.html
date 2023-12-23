@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="markdown-body entry-content container-lg" itemprop="text"><h1 tabindex="-1" dir="auto"><a id="user-content-vde-vehicle-distance-estimation-from-a-monocular-camera-for-advanced-driver-assistance-systems" class="anchor" aria-hidden="true" tabindex="-1" href="#vde-vehicle-distance-estimation-from-a-monocular-camera-for-advanced-driver-assistance-systems"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a><strong>VDE: Vehicle Distance Estimation from a Monocular Camera for Advanced Driver Assistance Systems</strong></h1>
+<p dir="auto"><animated-image data-catalyst=""><a target="_blank" rel="noopener noreferrer nofollow" href="https://user-images.githubusercontent.com/98331298/171547569-da221132-a13e-4b5f-8437-59cad290d3b2.gif" data-target="animated-image.originalLink"><img src="https://user-images.githubusercontent.com/98331298/171547569-da221132-a13e-4b5f-8437-59cad290d3b2.gif" alt="ezgif com-gif-maker" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage"></a>
+      <span class="AnimatedImagePlayer" data-target="animated-image.player" hidden="">
+        <a data-target="animated-image.replacedLink" class="AnimatedImagePlayer-images" href="https://user-images.githubusercontent.com/98331298/171547569-da221132-a13e-4b5f-8437-59cad290d3b2.gif" target="_blank">
+          
+        <span data-target="animated-image.imageContainer">
+            <img data-target="animated-image.replacedImage" alt="ezgif com-gif-maker" class="AnimatedImagePlayer-animatedImage" src="https://user-images.githubusercontent.com/98331298/171547569-da221132-a13e-4b5f-8437-59cad290d3b2.gif" style="display: block; opacity: 1;">
+          <canvas class="AnimatedImagePlayer-stillImage" aria-hidden="true" width="1012" height="314"></canvas></span></a>
+        <button data-target="animated-image.imageButton" class="AnimatedImagePlayer-images" tabindex="-1" aria-label="Play ezgif com-gif-maker" hidden=""></button>
+        <span class="AnimatedImagePlayer-controls" data-target="animated-image.controls" hidden="">
+          <button data-target="animated-image.playButton" class="AnimatedImagePlayer-button" aria-label="Play ezgif com-gif-maker">
+            <svg aria-hidden="true" focusable="false" class="octicon icon-play" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 13.5427V2.45734C4 1.82607 4.69692 1.4435 5.2295 1.78241L13.9394 7.32507C14.4334 7.63943 14.4334 8.36057 13.9394 8.67493L5.2295 14.2176C4.69692 14.5565 4 14.1739 4 13.5427Z">
+            </path></svg>
+            <svg aria-hidden="true" focusable="false" class="octicon icon-pause" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="2" width="3" height="12" rx="1"></rect>
+              <rect x="9" y="2" width="3" height="12" rx="1"></rect>
+            </svg>
+          </button>
+          <a data-target="animated-image.openButton" aria-label="Open ezgif com-gif-maker in new window" class="AnimatedImagePlayer-button" href="https://user-images.githubusercontent.com/98331298/171547569-da221132-a13e-4b5f-8437-59cad290d3b2.gif" target="_blank">
+            <svg aria-hidden="true" class="octicon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+              <path fill-rule="evenodd" d="M10.604 1h4.146a.25.25 0 01.25.25v4.146a.25.25 0 01-.427.177L13.03 4.03 9.28 7.78a.75.75 0 01-1.06-1.06l3.75-3.75-1.543-1.543A.25.25 0 0110.604 1zM3.75 2A1.75 1.75 0 002 3.75v8.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 12.25v-3.5a.75.75 0 00-1.5 0v3.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-8.5a.25.25 0 01.25-.25h3.5a.75.75 0 000-1.5h-3.5z"></path>
+            </svg>
+          </a>
+        </span>
+      </span></animated-image></p>
+<ul dir="auto">
+<li>paper:<a href="https://www.mdpi.com/2073-8994/14/12/2657" rel="nofollow">https://www.mdpi.com/2073-8994/14/12/2657</a></li>
+<li>github: <a href="https://github.com/KyujinHan/Object-Depth-detection-based-hybrid-Distance-estimator">https://github.com/KyujinHan/Object-Depth-detection-based-hybrid-Distance-estimator</a></li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-요약" class="anchor" aria-hidden="true" tabindex="-1" href="#요약"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>요약</h2>
+<ul dir="auto">
+<li>DETR(Detection with Transformers)로 class, object의 bounding box 좌표를 출력</li>
+<li>GLPDepth(Global-Local Path Depth)로 depth 생성</li>
+<li>Depth map 위에 bounding box를 overlapping 하여 object의 depth 통계지표를 계산</li>
+<li>DETR에서 추출한 특성과 depth의 통계 값을 LSTM에 넣어 각 객체의 실제 거리 계산</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-목표" class="anchor" aria-hidden="true" tabindex="-1" href="#목표"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>목표</h2>
+<ul dir="auto">
+<li>단안 카메라를 사용하여 정확하고 효율적인 차량 거리 추정을 위한 프레임워크를 개발</li>
+<li>거리 추정을 위한 프레임워크 제안</li>
+<li>객체 탐지 및 깊이 추정</li>
+<li>거리 예측 모델 훈련</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-방법론" class="anchor" aria-hidden="true" tabindex="-1" href="#방법론"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>방법론</h2>
+<ul dir="auto">
+<li>객체 탐지기 (DETR) : 단안 카메라로 촬영된 이미지에서 객체를 탐지하고, 각 객체에 대한 유형과 경계 상자의 좌표를 식별합니다.</li>
+<li>깊이 추정기 (Global-Local Path Network) : 이미지에 대한 깊이 맵을 생성하여, 객체의 깊이 특징(예: 평균 깊이, 최소 깊이, 최대 깊이)을 추출합니다.</li>
+<li>거리 예측기 (XGBoost, RF, LSTM) : 객체 유형, 경계 상자의 세부 정보 및 추출된 깊이 특징을 바탕으로 객체와 카메라 사이의 실제 거리를 예측합니다.</li>
+<li>객체의 배경 픽셀을 제외한 20% 잘라낸 평균 깊이를 사용하여 거리를 더 정확하게 예측합니다.</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-모델-아키텍쳐" class="anchor" aria-hidden="true" tabindex="-1" href="#모델-아키텍쳐"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>모델 아키텍쳐</h2>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/STjIGZG.png"><img src="https://i.imgur.com/STjIGZG.png" alt="image" style="max-width: 100%;"></a></p>
+<ul dir="auto">
+<li>Image input</li>
+<li><strong>DETR</strong>과 <strong>GLPDepth</strong>에 각각 input
+<ul dir="auto">
+<li><strong>DETR</strong>에서는 class, object의 bounding box 좌표를 출력</li>
+<li><strong>GLPDepth</strong>에서는 image의 depth을 생성</li>
+</ul>
+</li>
+<li>Depth map 위에 bounding box를 overlapping</li>
+<li>Overlappning 된 bounding box를 기준으로 각 object의 depth 통계지표를 계산</li>
+<li>Bounding box, class information, depth의 통계 values를 LSTM에 넣어서 각 객체의 real distance를 계산</li>
+</ul>
+<h3 tabindex="-1" dir="auto"><a id="user-content-1-detr-end-to-end-object-detection-with-transformers" class="anchor" aria-hidden="true" tabindex="-1" href="#1-detr-end-to-end-object-detection-with-transformers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>1. DETR (End-to-End Object Detection with Transformers)</h3>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/FUPjDz1.png"><img src="https://i.imgur.com/FUPjDz1.png" alt="image" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/140053617/292182696-75588172-3c01-44e7-a68c-c93db00b08d1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyNjk2LTc1NTg4MTcyLTNjMDEtNDRlNy1hNjhjLWM5M2RiMDBiMDhkMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDMxMTAwZTYyMWI5MWZhYTMwZGI0MzAwYzU5OTk2M2FjMTUyM2MzMmNkMWY5YmU4NTU5NjgyZTg4ZDYwOWVlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.3n66LXLo_o-RKtvDldZgYJePxhr51BdL0YPNveKM6Rc"><img src="https://private-user-images.githubusercontent.com/140053617/292182696-75588172-3c01-44e7-a68c-c93db00b08d1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyNjk2LTc1NTg4MTcyLTNjMDEtNDRlNy1hNjhjLWM5M2RiMDBiMDhkMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNDMxMTAwZTYyMWI5MWZhYTMwZGI0MzAwYzU5OTk2M2FjMTUyM2MzMmNkMWY5YmU4NTU5NjgyZTg4ZDYwOWVlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.3n66LXLo_o-RKtvDldZgYJePxhr51BdL0YPNveKM6Rc" alt="image" style="max-width: 100%;"></a></p>
+<ul dir="auto">
+<li>Image input</li>
+<li>CNN (Convolutional Neural Network) 사용하여 입력 이미지로부터 중요한 특징을 추출</li>
+<li>추출된 특징 맵은 Transformer 모델로 전달
+<ul dir="auto">
+<li>
+<p dir="auto">인코더는 이미지 전체의 맥락을 분석</p>
+</li>
+<li>
+<p dir="auto">디코더는 특정 객체 쿼리를 기반으로 각 객체의 클래스와 바운딩 박스(위치 및 크기)를 예측</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 tabindex="-1" dir="auto"><a id="user-content-2-glpdepth-structure-global-local-path-networks-for-monocular-depth-estimation-with-vertical-cutdepth" class="anchor" aria-hidden="true" tabindex="-1" href="#2-glpdepth-structure-global-local-path-networks-for-monocular-depth-estimation-with-vertical-cutdepth"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>2. GLPDepth structure (Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth)</h3>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/TREvtTN.png"><img src="https://i.imgur.com/TREvtTN.png" alt="image" style="max-width: 100%;"></a></p>
+<ul dir="auto">
+<li>Input image</li>
+<li>Global path
+<ul dir="auto">
+<li>이미지의 전체적인 맥락과 광범위한 특징을 파악하는 데 중점</li>
+<li>Image를 Patch로 나눠서 1D로 flatten → 4번의 Transformer encoder block을 적용 → Block을 1/4, 1/8, 1/16, 1/32 사이즈로 scaling된 bottleneck feature 4개 output</li>
+</ul>
+</li>
+<li>Local path
+<ul dir="auto">
+<li>이미지 내의 세부적이고 구체적인 특징에 중점</li>
+<li>embedding의 channel을 reduction한 후,&nbsp;upsampling을 진행 → 각 decoder stage마다 Global Path에서 나온 bottleneck feature를 SFF라는 network에 넣어서 embedding → Conv-ReLU-Conv와 sigmoid를 적용해서 최종적으로 depth-map</li>
+</ul>
+</li>
+</ul>
+<h3 tabindex="-1" dir="auto"><a id="user-content-3-lstm-randomforest-xgboost" class="anchor" aria-hidden="true" tabindex="-1" href="#3-lstm-randomforest-xgboost"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>3. LSTM, RandomForest, XGBoost</h3>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/140053617/292182810-23399896-7e2e-42dd-8903-ba92d113e5e7.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyODEwLTIzMzk5ODk2LTdlMmUtNDJkZC04OTAzLWJhOTJkMTEzZTVlNy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hNTdiYjJkMzg0YmEzZDYwYmJlNzZjZjgxYWIzMzBhNzk3MDI3NGQzMzBlN2FmNDk5ZmNmMmQwZWJiZDcxYzA0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.y8FkBPwJfZZIyoZVcLxoUl1mySuSvKKTi8yLkz-i5GE"><img src="https://private-user-images.githubusercontent.com/140053617/292182810-23399896-7e2e-42dd-8903-ba92d113e5e7.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyODEwLTIzMzk5ODk2LTdlMmUtNDJkZC04OTAzLWJhOTJkMTEzZTVlNy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hNTdiYjJkMzg0YmEzZDYwYmJlNzZjZjgxYWIzMzBhNzk3MDI3NGQzMzBlN2FmNDk5ZmNmMmQwZWJiZDcxYzA0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.y8FkBPwJfZZIyoZVcLxoUl1mySuSvKKTi8yLkz-i5GE" alt="image" style="max-width: 100%;"></a></p>
+<ul dir="auto">
+<li>LSTM과 뒤에 FFN을 붙여서 Real distance를 예측</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-데이터셋-전처리" class="anchor" aria-hidden="true" tabindex="-1" href="#데이터셋-전처리"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>데이터셋 전처리</h2>
+<ul dir="auto">
+<li>KITTI 데이터 사용</li>
+<li>KITTI 데이터셋 내의 각 객체의 경계 상자 좌표를 연구팀의 프레임워크에서 사용된 객체 탐지기로 식별된 좌표로 대체</li>
+<li>KITTI 데이터셋과 비교하여 두 경계 상자 간의 중첩 비율을 교집합 대 합집합(IoU) 함수를 사용하여 계산
+<ul dir="auto">
+<li>중첩 비율이 70% 이상이면 먼 객체의 경계 상자 제거</li>
+<li>70% 미만이면 중첩 영역 제외하고 깊이 특성 추</li>
+</ul>
+</li>
+<li>데이터셋을 시각적으로 검토하여 잘못된 객체 거리 정보를 가진 객체 제외</li>
+</ul>
+<h2 tabindex="-1" dir="auto"><a id="user-content-평가지표-및-결과" class="anchor" aria-hidden="true" tabindex="-1" href="#평가지표-및-결과"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>평가지표 및 결과</h2>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/maFROUx.png"><img src="https://i.imgur.com/maFROUx.png" alt="image" style="max-width: 100%;"></a></p>
+<ul dir="auto">
+<li>전체적인 성능은 LSTM이 뛰어났고, Car의 distance estimation 성능은 XGBoost가 우월했다.
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/140053617/292182924-bfe4562f-10b3-4d8b-96c2-dde42ba0d7e8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyOTI0LWJmZTQ1NjJmLTEwYjMtNGQ4Yi05NmMyLWRkZTQyYmEwZDdlOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01OGUwZmVjZDJmNWZiZDMyYTI4NDMxYzczZTBkMWVhODBjYzFmNTNmM2E1Y2U0NDc5ZGI1MTk2OWQ1ZmM5NWIyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.x0-uXay8M9otlc3WFcJbyi1ZSzKRMlbRj1Gq9gybZCk"><img src="https://private-user-images.githubusercontent.com/140053617/292182924-bfe4562f-10b3-4d8b-96c2-dde42ba0d7e8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyOTI0LWJmZTQ1NjJmLTEwYjMtNGQ4Yi05NmMyLWRkZTQyYmEwZDdlOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01OGUwZmVjZDJmNWZiZDMyYTI4NDMxYzczZTBkMWVhODBjYzFmNTNmM2E1Y2U0NDc5ZGI1MTk2OWQ1ZmM5NWIyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.x0-uXay8M9otlc3WFcJbyi1ZSzKRMlbRj1Gq9gybZCk" alt="image" style="max-width: 100%;"></a></li>
+</ul>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://i.imgur.com/rmQd2Q0.png"><img src="https://i.imgur.com/rmQd2Q0.png" alt="image" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://private-user-images.githubusercontent.com/140053617/292182961-822d02e0-ea4d-4751-9d81-e5c135d062f3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyOTYxLTgyMmQwMmUwLWVhNGQtNDc1MS05ZDgxLWU1YzEzNWQwNjJmMy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lNDkzZjFmMWVhZTY5ZWQzM2ViMDg2ZDk3OTM4NWRhM2YxNWIyNzRlOWNjMjZjNzQ3NDJlNWIwMGNlN2U0NGI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.vTa2qQWZLQJ3UtjCy7Vva1FOIpSL9I8d8YBhpWIRXec"><img src="https://private-user-images.githubusercontent.com/140053617/292182961-822d02e0-ea4d-4751-9d81-e5c135d062f3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDMyMDI3MTQsIm5iZiI6MTcwMzIwMjQxNCwicGF0aCI6Ii8xNDAwNTM2MTcvMjkyMTgyOTYxLTgyMmQwMmUwLWVhNGQtNDc1MS05ZDgxLWU1YzEzNWQwNjJmMy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIyMVQyMzQ2NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lNDkzZjFmMWVhZTY5ZWQzM2ViMDg2ZDk3OTM4NWRhM2YxNWIyNzRlOWNjMjZjNzQ3NDJlNWIwMGNlN2U0NGI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.vTa2qQWZLQJ3UtjCy7Vva1FOIpSL9I8d8YBhpWIRXec" alt="image" style="max-width: 100%;"></a></p>
+<h2 tabindex="-1" dir="auto"><a id="user-content-실패-원인" class="anchor" aria-hidden="true" tabindex="-1" href="#실패-원인"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>실패 원인</h2>
+<ul dir="auto">
+<li>ValueError: X has 16 features, but StandardScaler is expecting 15 features as input.</li>
+<li>scaler 안의 특성 개수가 다른 것을 해결하지 못함</li>
+</ul>
+</article>
+{% endblock %}
