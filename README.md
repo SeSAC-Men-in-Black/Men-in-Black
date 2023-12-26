@@ -103,17 +103,23 @@
    
        ⅰ. 정상
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/2e074200-ff13-47c8-9781-ea10440611ae)
+
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/a0ce2c45-06a2-4d8b-a9a9-1856df83fd89)
+
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/8fc3ccee-c625-48f9-a12c-6e77046a8507)
    
        ⅱ. 위험
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/7d8d9cea-9e1d-4f7b-8391-93abd1474d1b)
+
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/f463b8a0-07ad-4f24-b5fb-65cd146aa369)
+
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/4e0f5535-8d59-4045-87c9-d13ea7040ba2)
    
         ⅲ. 위반
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/139735ea-e164-4e1f-9834-fd0bec7cd076)
+
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/8cc27f2e-a4d5-484e-b559-e01796cd88c3)
+
 ![image](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/1c059bb2-0456-4fd9-bcd8-7a576c1e315c)
 
 
