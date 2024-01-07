@@ -304,7 +304,7 @@ Canny Edge Detection:
 - Try Segmentation
 </details>
 
-### [Monocular Depth Estimation]([https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation](https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation))
+### [Monocular Depth Estimation](https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation)
 #### [ZoeDepth][(https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation/ZoeDepth](https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation/ZoeDepth)) by [신승엽](https://github.com/syshin0116)
 #### [VDE]([https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation/VDE](https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation/VDE)) by [진한별](https://github.com/Moonbyeol)
 #### [MonoDepth2]([https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation/MonoDepth2](https://github.com/syshin0116/Men-in-Black/tree/main/Monocular%20Depth%20Estimation/MonoDepth2)) by [이현지](https://github.com/FrontHeadNULL)
