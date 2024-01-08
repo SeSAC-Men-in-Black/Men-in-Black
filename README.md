@@ -374,7 +374,7 @@ Canny Edge Detection:
 ![KakaoTalk_20231221_173206463](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/09883330-4bb9-4651-9688-28010e4458c9)
 ![KakaoTalk_20231208_151131324](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/9f171f80-f9a8-4ffc-8ff1-b17b0f7967dd)
 
-## 7. Ciation
+## 7. Citation
 
 - Bhat, Shariq Farooq, et al. “Zoedepth: Zero-Shot Transfer by Combining Relative and Metric Depth.” arXiv.Org, 23 Feb. 2023, arxiv.org/abs/2302.12288. 
 - Birkl, Reiner, et al. “Midas V3.1 -- a Model Zoo for Robust Monocular Relative Depth Estimation.” arXiv.Org, 26 July 2023, arxiv.org/abs/2307.14460. 
