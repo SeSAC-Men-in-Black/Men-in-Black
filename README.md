@@ -374,3 +374,14 @@ Canny Edge Detection:
 ![KakaoTalk_20231221_173206463](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/09883330-4bb9-4651-9688-28010e4458c9)
 ![KakaoTalk_20231208_151131324](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/140053617/9f171f80-f9a8-4ffc-8ff1-b17b0f7967dd)
 
+## 7. Ciation
+
+- Bhat, Shariq Farooq, et al. “Zoedepth: Zero-Shot Transfer by Combining Relative and Metric Depth.” arXiv.Org, 23 Feb. 2023, arxiv.org/abs/2302.12288. 
+- Birkl, Reiner, et al. “Midas V3.1 -- a Model Zoo for Robust Monocular Relative Depth Estimation.” arXiv.Org, 26 July 2023, arxiv.org/abs/2307.14460. 
+- Godard, Clément, et al. “Digging into Self-Supervised Monocular Depth Estimation.” arXiv.Org, 17 Aug. 2019, arxiv.org/abs/1806.01260. 
+- He, Kaiming, et al. “Mask R-CNN.” arXiv.Org, 24 Jan. 2018, arxiv.org/abs/1703.06870. 
+- Lee, Seungyoo, et al. “Vehicle Distance Estimation from a Monocular Camera for Advanced Driver Assistance Systems.” MDPI, Multidisciplinary Digital Publishing Institute, 15 Dec. 2022, www.mdpi.com/2073-8994/14/12/2657. 
+- Lin, Tsung-Yi, et al. “Microsoft Coco: Common Objects in Context.” arXiv.Org, 21 Feb. 2015, arxiv.org/abs/1405.0312. 
+- Ranftl, René, et al. “Towards Robust Monocular Depth Estimation: Mixing Datasets for Zero-Shot Cross-Dataset Transfer.” arXiv.Org, 25 Aug. 2020, arxiv.org/abs/1907.01341. 
+- Reis, Dillon, et al. “Real-Time Flying Object Detection with Yolov8.” arXiv.Org, 17 May 2023, arxiv.org/abs/2305.09972. 
+- Song, Zhenbo, et al. “End-to-End Learning for Inter-Vehicle Distance and Relative Velocity Estimation in ADAS with a Monocular Camera.” arXiv.Org, 9 June 2020, arxiv.org/abs/2006.04082. 
