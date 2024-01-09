@@ -47,6 +47,7 @@
 - ZoeDepth에서 'metric bins module'은 깊이 추정의 정확도를 혁신적으로 향상시키는 핵심 요소입니다.
 - 이 모듈은 각 픽셀별로 깊이 bin의 중심을 예측하는 기능을 함으로써, 보다 세밀한 깊이 계산을 가능하게 합니다.
 - 깊이 추정의 정밀도를 높이는 데 중요한 역할을 하며, 다양한 환경에서의 깊이 추정 정확도 향상에 기여합니다.
+  
 ## 데이터셋과 사전 훈련
 
 - 12개의 다양한 데이터셋을 사용
@@ -55,7 +56,7 @@
 - 이들 데이터셋은 모델의 다양한 환경에 대한 일반화 능력을 강화하기 위해 선택
 
 
-## Loss Function and Evaluation Metrics
+## 평가지표 및 결과
 
 1. Absolute Relative Error (REL): 
 $$\quad \text{REL} = \frac{1}{M} \sum_{i=1}^{M} \left| \frac{d_i - \hat{d}_i}{d_i} \right|$$
