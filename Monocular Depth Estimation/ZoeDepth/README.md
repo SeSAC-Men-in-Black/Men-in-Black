@@ -58,50 +58,33 @@
 ## Loss Function and Evaluation Metrics
 
 1. Absolute Relative Error (REL): 
-$$
-\quad \text{REL} = \frac{1}{M} \sum_{i=1}^{M} \left| \frac{d_i - \hat{d}_i}{d_i} \right|
-$$
+$$\quad \text{REL} = \frac{1}{M} \sum_{i=1}^{M} \left| \frac{d_i - \hat{d}_i}{d_i} \right|$$
 2. Root Mean Squared Error (RMSE):
-$$
-\quad \text{RMSE} = \sqrt{\frac{1}{M} \sum_{i=1}^{M} \left| d_i - \hat{d}_i \right|^2}
-$$
+$$\quad \text{RMSE} = \sqrt{\frac{1}{M} \sum_{i=1}^{M} \left| d_i - \hat{d}_i \right|^2}$$
 
 3. Average Log10 Error: 
-$$ 
-\quad \text{Average Log10 Error} = \frac{1}{M} \sum_{i=1}^{M} \left| \log_{10}(d_i) - \log_{10}(\hat{d}_i) \right| 
-$$
+$$\quad \text{Average Log10 Error} = \frac{1}{M} \sum_{i=1}^{M} \left| \log_{10}(d_i) - \log_{10}(\hat{d}_i) \right| $$
 
 4. Threshold Accuracy $(\delta^n)$:
-$$
-\begin{align*}
-\text{Percentage of pixels where} \quad \max \left( \frac{d_i}{\hat{d}_i}, \frac{\hat{d}_i}{d_i} \right) < 1.25^n \quad \text{for } n = 1, 2, 3 \\
-\delta^n &: \text{Threshold Accuracy for } n = 1, 2, 3 \\
-d_i &: \text{Ground Truth Depth at pixel } i \\
-\hat{d}_i &: \text{Predicted Depth at pixel } i \\
-M &: \text{Total Number of Pixels in the Image}
-\end{align*}
-$$
+$$\text{Percentage of pixels where} \quad \max \left( \frac{d_i}{\hat{d}_i}, \frac{\hat{d}_i}{d_i} \right) < 1.25^n \quad \text{for } n = 1, 2, 3 \\
+\delta^n : \text{Threshold Accuracy for } n = 1, 2, 3 \\
+d_i : \text{Ground Truth Depth at pixel } i \\
+\hat{d}_i : \text{Predicted Depth at pixel } i \\
+M : \text{Total Number of Pixels in the Image}$$
+
 
 5. Mean Relative Improvement across Datasets (mRID):
-$$
-\quad \text{mRID} = \frac{1}{M} \sum_{i=1}^{M} \text{RID}_i
-$$
+$$\quad \text{mRID} = \frac{1}{M} \sum_{i=1}^{M} \text{RID}_i$$
 6. Mean Relative Improvement across Metrics (mRI$\theta$)
-$$
-\quad \text{mRI}\theta = \frac{1}{N} \sum_{j=1}^{N} \text{RI}\theta_j
-$$
+$$\quad \text{mRI}\theta = \frac{1}{N} \sum_{j=1}^{N} \text{RI}\theta_j$$
 
 7. Relative Improvement (RI) for lower-is-better metrics:
-$$
- \quad \text{RI} = \frac{r - t}{r}
-$$
+$$\quad \text{RI} = \frac{r - t}{r}$$
 
 
 8. Relative Improvement (RI) for higher-is-better metrics:
-$$ \quad \text{RI} = \frac{t - r}{r} $$
-$$
-\\ r: \text{Reference Score} \\ t: \text{Target Score} $$
-
+$$\quad \text{RI} = \frac{t - r}{r} $$
+$$\\ r: \text{Reference Score} \\ t: \text{Target Score} $$
 
 - ZoeDepth는 scale-invariant log loss를 사용하여 깊이 추정의 정확도 측정
 	- 이 loss function은 깊이 추정에서의 스케일 불변성을 보장하여, 다양한 크기의 객체에 대한 깊이 추정을 일관되게 수행할 수 있도록 함
