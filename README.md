@@ -383,7 +383,9 @@ Canny Edge Detection:
 ![](https://i.imgur.com/l8Pfqdw.gif)
 
 ### License Plate Recognition
-![](https://i.imgur.com/2IbmCVR.gif)
+![](https://i.imgur.com/hGnGJXv.gif)
+![번호판_result](https://github.com/SeSAC-Men-in-Black/Men-in-Black/assets/99532836/78355fa4-4104-4a43-a21f-9ab55822a435)
+
 
 ### Monocular Depth Estimation
 ![](https://i.imgur.com/tZfKRJr.gif)
