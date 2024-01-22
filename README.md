@@ -376,17 +376,18 @@ Canny Edge Detection:
 
 ## 7. 결과
 
-#### Line Violation Detection
+### Line Violation Detection
 ![](https://i.imgur.com/Y0zF3xK.gif)
 
-#### Traffic Light Recognition
+### Traffic Light Recognition
 ![](https://i.imgur.com/l8Pfqdw.gif)
 
-#### License Plate Recognition 
-![](https://i.imgur.com/7D0GZ8q.gif)
+### License Plate Recognition
+![](https://i.imgur.com/2IbmCVR.gif)
 
-#### Monocular Depth Estimation
+### Monocular Depth Estimation
 ![](https://i.imgur.com/tZfKRJr.gif)
+
 
 ## 8. 참고 문헌
 
