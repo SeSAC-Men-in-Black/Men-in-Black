@@ -236,6 +236,10 @@ Image sizes: 640 train, 640 val
 
 ![](https://i.imgur.com/1B8dgOW.png)
 
+![](https://i.imgur.com/Ml5ZYbH.png)
+
+![](https://i.imgur.com/p7nY8Mx.png)
+
 ## 3. OCR(Optical Character Recognition)
 
 Model: EasyOCR
